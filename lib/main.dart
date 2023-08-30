@@ -22,7 +22,10 @@ class MyApp extends StatelessWidget {
                     alignment: Alignment.centerLeft, child: Icon(Icons.menu))),
             Align(
                 alignment: Alignment.centerRight,
-                child: Text('قیمت به روز ارز',style: TextStyle(color: Colors.black),)),
+                child: Text(
+                  'قیمت به روز ارز',
+                  style: TextStyle(color: Colors.black),
+                )),
             Icon(Icons.macro_off_rounded)
           ],
         ),
