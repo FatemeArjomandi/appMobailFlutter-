@@ -21,8 +21,17 @@ class MyApp extends StatelessWidget {
         Locale('fa'), //persion
         //Locale('en'), // Spanish
       ],
-      theme: ThemeData(fontFamily: "Rubik"),
-      home:const Home(),
+      theme: ThemeData(
+          fontFamily: "Rubik",
+          textTheme: const TextTheme(
+            displayLarge: TextStyle(
+                fontFamily: 'Rubik', fontSize: 16, fontWeight: FontWeight.w700),
+            bodyLarge: TextStyle(
+                fontFamily: 'Rubik', fontSize: 13, fontWeight: FontWeight.w300),
+            displayMedium: TextStyle(
+                fontFamily: 'Rubik', fontSize: 14, fontWeight: FontWeight.w300),
+          )),
+      home: const Home(),
     );
   }
 }
@@ -35,27 +44,29 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color.fromARGB(255, 243, 243, 243),
       appBar: AppBar(
+        elevation: 0,
         backgroundColor: Colors.white,
         actions: [
           Image.asset("assets/image/icon.png"),
-          const Align(
+         Align(
               alignment: Alignment.centerRight,
               child: Text(
-                'قیمت به روز ارز',
-                style: TextStyle(color: Colors.black),
+                'قیمت به روز سکه وارز',
+                style: Theme.of(context).textTheme.displayLarge
               )),
           Expanded(
               child: Align(
                   alignment: Alignment.centerLeft,
                   child: Image.asset("assets/image/menu.png"))),
           const SizedBox(
-            width: 8,
+            width: 16,
           ),
         ],
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(26.0),
         child: Column(children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -64,19 +75,21 @@ class Home extends StatelessWidget {
               const SizedBox(
                 width: 8,
               ),
-              const Text(
+              Text(
                 'نرخ ارز آزاد چیست؟',
-                style: TextStyle(),
+                style: Theme.of(context).textTheme.displayLarge,
               ),
             ],
           ),
-          const Text(
+          const SizedBox(height: 12,),
+           Text(
             ' نرخ ارزها در معادلات نقدی و رایج روزانه است معادلات  نقدی معادلاتی هستند که خریدار و فروشنده به محض انجام معادله ارز و ریال رو باهم مبادله می کنند',
             textDirection: TextDirection.rtl,
-            style: TextStyle(color: Colors.black),
-          )
+            style: Theme.of(context).textTheme.bodyLarge,
+                   )
         ]),
       ),
     );
   }
 }
+
