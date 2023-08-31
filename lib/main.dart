@@ -25,11 +25,14 @@ class MyApp extends StatelessWidget {
           fontFamily: "Rubik",
           textTheme: const TextTheme(
             displayLarge: TextStyle(
-                fontFamily: 'Rubik', fontSize: 16, fontWeight: FontWeight.w700),
+                fontFamily: 'Rubik', fontSize: 16, fontWeight: FontWeight.w800),
             bodyLarge: TextStyle(
                 fontFamily: 'Rubik', fontSize: 13, fontWeight: FontWeight.w300),
             displayMedium: TextStyle(
-                fontFamily: 'Rubik', fontSize: 14, fontWeight: FontWeight.w300),
+                fontFamily: 'Rubik',
+                color: Colors.white,
+                fontSize: 14,
+                fontWeight: FontWeight.w300),
           )),
       home: const Home(),
     );
@@ -50,12 +53,10 @@ class Home extends StatelessWidget {
         backgroundColor: Colors.white,
         actions: [
           Image.asset("assets/image/icon.png"),
-         Align(
+          Align(
               alignment: Alignment.centerRight,
-              child: Text(
-                'قیمت به روز سکه وارز',
-                style: Theme.of(context).textTheme.displayLarge
-              )),
+              child: Text('قیمت به روز سکه وارز',
+                  style: Theme.of(context).textTheme.displayLarge)),
           Expanded(
               child: Align(
                   alignment: Alignment.centerLeft,
@@ -81,15 +82,73 @@ class Home extends StatelessWidget {
               ),
             ],
           ),
-          const SizedBox(height: 12,),
-           Text(
-            ' نرخ ارزها در معادلات نقدی و رایج روزانه است معادلات  نقدی معادلاتی هستند که خریدار و فروشنده به محض انجام معادله ارز و ریال رو باهم مبادله می کنند',
-            textDirection: TextDirection.rtl,
-            style: Theme.of(context).textTheme.bodyLarge,
-                   )
+          Padding(
+            padding: const EdgeInsets.fromLTRB(0, 12, 0, 24),
+            child: Text(
+              ' نرخ ارزها در معادلات نقدی و رایج روزانه است معادلات  نقدی معادلاتی هستند که خریدار و فروشنده به محض انجام معادله ارز و ریال رو باهم مبادله می کنند',
+              textDirection: TextDirection.rtl,
+              style: Theme.of(context).textTheme.bodyLarge,
+            ),
+          ),
+          Container(
+            width: double.infinity,
+            height: 35,
+            decoration: const BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(1000)),
+              color: Color.fromARGB(255, 130, 130, 130),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Text(
+                  'نام آزاد ارز',
+                  style: Theme.of(context).textTheme.displayMedium,
+                ),
+                Text(
+                  'قیمت',
+                  style: Theme.of(context).textTheme.displayMedium,
+                ),
+                Text(
+                  'تغییر',
+                  style: Theme.of(context).textTheme.displayMedium,
+                )
+              ],
+            ),
+          ),
+          SizedBox(
+              height: 350,
+              child: ListView.builder(
+                physics: const BouncingScrollPhysics(),
+                itemCount: 20,
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 8, 0, 0),
+                    child: Container(
+                        width: double.infinity,
+                        height: 50,
+                        decoration: const BoxDecoration(
+                            boxShadow: <BoxShadow>[
+                              BoxShadow(blurRadius: 0.1, color: Colors.grey)
+                            ],
+                            color: Colors.white,
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(1000))),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Text('دلار',
+                                style: Theme.of(context).textTheme.bodyLarge),
+                            Text('1000',
+                                style: Theme.of(context).textTheme.bodyLarge),
+                            Text('+3',
+                                style: Theme.of(context).textTheme.bodyLarge),
+                          ],
+                        )),
+                  );
+                },
+              ))
         ]),
       ),
     );
   }
 }
-
