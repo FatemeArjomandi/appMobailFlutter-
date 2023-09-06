@@ -47,127 +47,173 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 243, 243, 243),
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.white,
-        actions: [
-          Image.asset("assets/image/icon.png"),
-          Align(
-              alignment: Alignment.centerRight,
-              child: Text('قیمت به روز سکه وارز',
-                  style: Theme.of(context).textTheme.displayLarge)),
-          Expanded(
-              child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: Image.asset("assets/image/menu.png"))),
-          const SizedBox(
-            width: 16,
-          ),
-        ],
-      ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(18.0),
-          child: Column(children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Image.asset('assets/image/g.png'),
-                const SizedBox(
-                  width: 8,
-                ),
-                Text(
-                  'نرخ ارز آزاد چیست؟',
-                  style: Theme.of(context).textTheme.displayLarge,
-                ),
-              ],
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: const Color.fromARGB(255, 243, 243, 243),
+        appBar: AppBar(
+          elevation: 0,
+          backgroundColor: Colors.white,
+          actions: [
+            Image.asset("assets/image/icon.png"),
+            Align(
+                alignment: Alignment.centerRight,
+                child: Text('قیمت به روز سکه وارز',
+                    style: Theme.of(context).textTheme.displayLarge)),
+            Expanded(
+                child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Image.asset("assets/image/menu.png"))),
+            const SizedBox(
+              width: 16,
             ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(0, 12, 0, 24),
-              child: Text(
-                ' نرخ ارزها در معادلات نقدی و رایج روزانه است معادلات  نقدی معادلاتی هستند که خریدار و فروشنده به محض انجام معادله ارز و ریال رو باهم مبادله می کنند',
-                textDirection: TextDirection.rtl,
-                style: Theme.of(context).textTheme.bodyLarge,
-              ),
-            ),
-            Container(
-              width: double.infinity,
-              height: 35,
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(1000)),
-                color: Color.fromARGB(255, 130, 130, 130),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+          ],
+        ),
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(18.0),
+            child: Column(children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Text(
-                    'نام آزاد ارز',
-                    style: Theme.of(context).textTheme.displayMedium,
+                  Image.asset('assets/image/g.png'),
+                  const SizedBox(
+                    width: 8,
                   ),
                   Text(
-                    'قیمت',
-                    style: Theme.of(context).textTheme.displayMedium,
-                  ),
-                  Text(
-                    'تغییر',
-                    style: Theme.of(context).textTheme.displayMedium,
-                  )
-                ],
-              ),
-            ),
-            SizedBox(
-                height: 350,
-                child: ListView.separated(
-                  physics: const BouncingScrollPhysics(),
-                  itemCount: 20,
-                  itemBuilder: (context, index) {
-                    return const Padding(
-                      padding: EdgeInsets.fromLTRB(0, 8, 0, 0),
-                      child: MyItemes(),
-                    );
-                  },
-                  separatorBuilder: (BuildContext context, int index) {
-                    if (index % 10 == 0) {
-                      return const Padding(
-                        padding: EdgeInsets.fromLTRB(0, 8, 0, 0),
-                        child: Advertising(),
-                      );
-                    } else {
-                      return const SizedBox.shrink();
-                    }
-                  },
-                )),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(0, 12, 0, 0),
-              child: Container(
-                width: double.infinity,
-                height: 50,
-                decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(1000)),
-                    color: Color.fromARGB(255, 232, 232, 232)),
-                child: TextButton.icon(
-                  onPressed: () {},
-                  icon: const Icon(
-                    CupertinoIcons.refresh_bold,
-                    color: Colors.black,
-                  ),
-                  label: Text(
-                    'بروز رسانی',
+                    'نرخ ارز آزاد چیست؟',
                     style: Theme.of(context).textTheme.displayLarge,
                   ),
-                  style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(
-                          const Color.fromARGB(255, 202, 193, 255))),
+                ],
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0, 12, 0, 24),
+                child: Text(
+                  ' نرخ ارزها در معادلات نقدی و رایج روزانه است معادلات  نقدی معادلاتی هستند که خریدار و فروشنده به محض انجام معادله ارز و ریال رو باهم مبادله می کنند',
+                  textDirection: TextDirection.rtl,
+                  style: Theme.of(context).textTheme.bodyLarge,
                 ),
               ),
-            )
-          ]),
+              //
+              Container(
+                width: double.infinity,
+                height: 35,
+                decoration: const BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(1000)),
+                  color: Color.fromARGB(255, 130, 130, 130),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Text(
+                      'نام آزاد ارز',
+                      style: Theme.of(context).textTheme.displayMedium,
+                    ),
+                    Text(
+                      'قیمت',
+                      style: Theme.of(context).textTheme.displayMedium,
+                    ),
+                    Text(
+                      'تغییر',
+                      style: Theme.of(context).textTheme.displayMedium,
+                    )
+                  ],
+                ),
+              ),
+              //list
+              SizedBox(
+                  height: 350,
+                  child: ListView.separated(
+                    physics: const BouncingScrollPhysics(),
+                    itemCount: 20,
+                    itemBuilder: (context, index) {
+                      return const Padding(
+                        padding: EdgeInsets.fromLTRB(0, 8, 0, 0),
+                        child: MyItemes(),
+                      );
+                    },
+                    separatorBuilder: (BuildContext context, int index) {
+                      if (index % 10 == 0) {
+                        return const Padding(
+                          padding: EdgeInsets.fromLTRB(0, 8, 0, 0),
+                          child: Advertising(),
+                        );
+                      } else {
+                        return const SizedBox.shrink();
+                      }
+                    },
+                  )),
+              //update button box
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0, 12, 0, 0),
+                child: Container(
+                  width: double.infinity,
+                  height: 50,
+                  decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(1000)),
+                      color: Color.fromARGB(255, 232, 232, 232)),
+                  child: Row(
+                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      SizedBox(
+                        height: 50,
+                        child: TextButton.icon(
+                          onPressed: () => _showeSnackbar(
+                              context, 'به روز رسانی با موفقیت انجام شد'),
+                          icon: const Padding(
+                            padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                            child: Icon(
+                              CupertinoIcons.refresh_bold,
+                              color: Colors.black,
+                            ),
+                          ),
+                          label: Padding(
+                            padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
+                            child: Text(
+                              'بروز رسانی',
+                              style: Theme.of(context).textTheme.displayLarge,
+                            ),
+                          ),
+                          style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all(
+                                  const Color.fromARGB(255, 202, 193, 255)),
+                              shape: MaterialStateProperty.all<
+                                      RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                                      borderRadius:
+                                          BorderRadius.circular(1000)))),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(50, 0, 0, 0),
+                        child: Text(
+                          'آخرین بروز رسانی ${_getTime()}',
+                          style: Theme.of(context).textTheme.bodyLarge,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              )
+            ]),
+          ),
         ),
       ),
     );
   }
+
+  String _getTime() {
+    return '20:45';
+  }
+}
+
+void _showeSnackbar(BuildContext context, String masage) {
+  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+    content: Text(
+      masage,
+      style: Theme.of(context).textTheme.displayMedium,
+    ),
+    backgroundColor: Colors.green,
+  ));
 }
 
 class MyItemes extends StatelessWidget {
