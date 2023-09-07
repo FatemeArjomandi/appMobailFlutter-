@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:tech_blog/model/currency.dart';
 
 void main(List<String> args) {
   runApp(const MyApp());
@@ -124,12 +125,11 @@ class Home extends StatelessWidget {
                   height: 350,
                   child: ListView.separated(
                     physics: const BouncingScrollPhysics(),
-                    itemCount: 20,
+                    itemCount: 6,
                     itemBuilder: (context, index) {
-                      return const Padding(
-                        padding: EdgeInsets.fromLTRB(0, 8, 0, 0),
-                        child: MyItemes(),
-                      );
+                      return Padding(
+                          padding: const EdgeInsets.fromLTRB(0, 8, 0, 0),
+                          child: MyItemes());
                     },
                     separatorBuilder: (BuildContext context, int index) {
                       if (index % 10 == 0) {
@@ -152,7 +152,7 @@ class Home extends StatelessWidget {
                       borderRadius: BorderRadius.all(Radius.circular(1000)),
                       color: Color.fromARGB(255, 232, 232, 232)),
                   child: Row(
-                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       SizedBox(
                         height: 50,
@@ -216,13 +216,27 @@ void _showeSnackbar(BuildContext context, String masage) {
   ));
 }
 
+// ignore: must_be_immutable
 class MyItemes extends StatelessWidget {
-  const MyItemes({
+  MyItemes({
     super.key,
   });
+  List<Currency> curreny = [];
 
   @override
   Widget build(BuildContext context) {
+    curreny.add(Currency(
+        title: 'دلار آمریکا', price: '20000', chenge: '+5', status: 'p'));
+    curreny.add(Currency(
+        title: 'دلار استرالیا', price: '20000', chenge: '-1.4', status: 'n'));
+    curreny.add(
+        Currency(title: 'یورو', price: '20000', chenge: '-2', status: 'n'));
+    curreny.add(Currency(
+        title: 'لیر ترکیه', price: '20000', chenge: '+5', status: 'p'));
+    curreny.add(Currency(
+        title: 'دلار آلمان', price: '20000', chenge: '+5', status: 'p'));
+    curreny.add(Currency(
+        title: 'دلار روسیه', price: '20000', chenge: '+1.02', status: 'p'));
     return Container(
         width: double.infinity,
         height: 50,
@@ -235,9 +249,12 @@ class MyItemes extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Text('دلار', style: Theme.of(context).textTheme.bodyLarge),
-            Text('1000', style: Theme.of(context).textTheme.bodyLarge),
-            Text('+3', style: Theme.of(context).textTheme.bodyLarge),
+            Text(curreny[0].title!,
+                style: Theme.of(context).textTheme.bodyLarge),
+            Text(curreny[0].price!,
+                style: Theme.of(context).textTheme.bodyLarge),
+            Text(curreny[0].chenge!,
+                style: Theme.of(context).textTheme.bodyLarge),
           ],
         ));
   }
