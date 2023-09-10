@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:tech_blog/model/currency.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert' as convert;
 
 void main(List<String> args) {
   runApp(const MyApp());
@@ -35,19 +37,61 @@ class MyApp extends StatelessWidget {
                 color: Colors.white,
                 fontSize: 14,
                 fontWeight: FontWeight.w300),
+            displaySmall: TextStyle(
+                fontFamily: 'Rubik',
+                color: Colors.red,
+                fontSize: 14,
+                fontWeight: FontWeight.w700),
+            headlineMedium: TextStyle(
+                fontFamily: 'Rubik',
+                color: Colors.green,
+                fontSize: 14,
+                fontWeight: FontWeight.w700),
           )),
-      home: const Home(),
+      home: Home(),
     );
   }
 }
 
-class Home extends StatelessWidget {
-  const Home({
+class Home extends StatefulWidget {
+  Home({
     super.key,
   });
 
   @override
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  List<Currency> curreny = [];
+
+  getResponse() {
+    var url = 'http://sasansafari.com/flutter/api.php?access_key=flutter123456';
+    http.get(Uri.parse(url)).then((value) {
+      print(value.statusCode);
+      if (curreny.isEmpty) {
+        if (value.statusCode == 200) {
+          List jsonList = convert.jsonDecode(value.body);
+          if (jsonList.length > 0) {
+            for (int i = 0; i < jsonList.length; i++) {
+              setState(() {
+                curreny.add(Currency(
+                    id: jsonList[i]["id"],
+                    title: jsonList[i]["title"],
+                    price: jsonList[i]["price"],
+                    chenge: jsonList[i]["changes"],
+                    status: jsonList[i]["status"]));
+              });
+            }
+          }
+        }
+      }
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
+    getResponse();
     return SafeArea(
       child: Scaffold(
         backgroundColor: const Color.fromARGB(255, 243, 243, 243),
@@ -125,11 +169,11 @@ class Home extends StatelessWidget {
                   height: 350,
                   child: ListView.separated(
                     physics: const BouncingScrollPhysics(),
-                    itemCount: 6,
+                    itemCount: curreny.length,
                     itemBuilder: (context, index) {
                       return Padding(
                           padding: const EdgeInsets.fromLTRB(0, 8, 0, 0),
-                          child: MyItemes());
+                          child: MyItemes(index, curreny));
                     },
                     separatorBuilder: (BuildContext context, int index) {
                       if (index % 10 == 0) {
@@ -218,25 +262,17 @@ void _showeSnackbar(BuildContext context, String masage) {
 
 // ignore: must_be_immutable
 class MyItemes extends StatelessWidget {
-  MyItemes({
+  int index;
+  List<Currency> curreny;
+
+  MyItemes(
+    this.index,
+    this.curreny, {
     super.key,
   });
-  List<Currency> curreny = [];
 
   @override
   Widget build(BuildContext context) {
-    curreny.add(Currency(
-        title: 'دلار آمریکا', price: '20000', chenge: '+5', status: 'p'));
-    curreny.add(Currency(
-        title: 'دلار استرالیا', price: '20000', chenge: '-1.4', status: 'n'));
-    curreny.add(
-        Currency(title: 'یورو', price: '20000', chenge: '-2', status: 'n'));
-    curreny.add(Currency(
-        title: 'لیر ترکیه', price: '20000', chenge: '+5', status: 'p'));
-    curreny.add(Currency(
-        title: 'دلار آلمان', price: '20000', chenge: '+5', status: 'p'));
-    curreny.add(Currency(
-        title: 'دلار روسیه', price: '20000', chenge: '+1.02', status: 'p'));
     return Container(
         width: double.infinity,
         height: 50,
@@ -249,12 +285,16 @@ class MyItemes extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Text(curreny[0].title!,
+            Text(curreny[index].title!,
                 style: Theme.of(context).textTheme.bodyLarge),
-            Text(curreny[0].price!,
+            Text(curreny[index].price!,
                 style: Theme.of(context).textTheme.bodyLarge),
-            Text(curreny[0].chenge!,
-                style: Theme.of(context).textTheme.bodyLarge),
+            Text(
+              curreny[index].chenge!,
+              style: curreny[index].status == "n"
+                  ? Theme.of(context).textTheme.displaySmall
+                  : Theme.of(context).textTheme.headlineMedium,
+            ),
           ],
         ));
   }
