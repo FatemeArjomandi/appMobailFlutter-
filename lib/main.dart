@@ -65,9 +65,33 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   List<Currency> curreny = [];
 
-  getResponse() {
+  // getResponse() {
+  //   var url = 'http://sasansafari.com/flutter/api.php?access_key=flutter123456';
+  //   http.get(Uri.parse(url)).then((value) {
+  //     print(value.statusCode);
+  //     if (curreny.isEmpty) {
+  //       if (value.statusCode == 200) {
+  //         List jsonList = convert.jsonDecode(value.body);
+  //         if (jsonList.length > 0) {
+  //           for (int i = 0; i < jsonList.length; i++) {
+  //             setState(() {
+  //               curreny.add(Currency(
+  //                   id: jsonList[i]["id"],
+  //                   title: jsonList[i]["title"],
+  //                   price: jsonList[i]["price"],
+  //                   chenge: jsonList[i]["changes"],
+  //                   status: jsonList[i]["status"]));
+  //             });
+  //           }
+  //         }
+  //       }
+  //     }
+  //   });
+  // }
+
+   Future getResponse()async {
     var url = 'http://sasansafari.com/flutter/api.php?access_key=flutter123456';
-    http.get(Uri.parse(url)).then((value) {
+    var value = await http.get(Uri.parse(url));
       print(value.statusCode);
       if (curreny.isEmpty) {
         if (value.statusCode == 200) {
@@ -86,7 +110,7 @@ class _HomeState extends State<Home> {
           }
         }
       }
-    });
+    
   }
 
   @override
