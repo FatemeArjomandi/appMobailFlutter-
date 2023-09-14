@@ -4,6 +4,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:tech_blog/model/currency.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert' as convert;
+import 'dart:developer' as developer;
 
 void main(List<String> args) {
   runApp(const MyApp());
@@ -48,13 +49,13 @@ class MyApp extends StatelessWidget {
                 fontSize: 14,
                 fontWeight: FontWeight.w700),
           )),
-      home: Home(),
+      home:const Home(),
     );
   }
 }
 
 class Home extends StatefulWidget {
-  Home({
+  const Home({
     super.key,
   });
 
@@ -92,9 +93,10 @@ class _HomeState extends State<Home> {
    Future getResponse()async {
     var url = 'http://sasansafari.com/flutter/api.php?access_key=flutter123456';
     var value = await http.get(Uri.parse(url));
-      print(value.statusCode);
+     developer.log(value.body, name: 'getResponse');
       if (curreny.isEmpty) {
         if (value.statusCode == 200) {
+          developer.log(value.body, name: 'mine', error:convert.jsonDecode(value.body) );
           List jsonList = convert.jsonDecode(value.body);
           if (jsonList.length > 0) {
             for (int i = 0; i < jsonList.length; i++) {
