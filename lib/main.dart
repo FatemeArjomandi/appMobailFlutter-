@@ -5,6 +5,7 @@ import 'package:tech_blog/model/currency.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert' as convert;
 import 'dart:developer' as developer;
+import 'package:intl/intl.dart';
 
 void main(List<String> args) {
   runApp(const MyApp());
@@ -200,7 +201,7 @@ class _HomeState extends State<Home> {
                 padding: const EdgeInsets.fromLTRB(0, 12, 0, 24),
                 child: Text(
                   ' نرخ ارزها در معادلات نقدی و رایج روزانه است معادلات  نقدی معادلاتی هستند که خریدار و فروشنده به محض انجام معادله ارز و ریال رو باهم مبادله می کنند',
-                  textDirection: TextDirection.rtl,
+                  //textDirection: TextDirection.rtl,
                   style: Theme.of(context).textTheme.bodyLarge,
                 ),
               ),
@@ -328,8 +329,21 @@ class _HomeState extends State<Home> {
   }
 
   String _getTime() {
-    return '20:45';
+
+    DateTime  dateTime = DateTime.now();
+    return DateFormat('kk:mm:ss').format(dateTime);
   }
+}
+
+String getFarsiNumber(String number) {
+  List en = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+  List fa = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+
+  for (var element in en) {
+    number = number.replaceAll(element, fa[en.indexOf(element)]);
+  }
+
+  return number;
 }
 
 void _showeSnackbar(BuildContext context, String masage) {
@@ -369,10 +383,10 @@ class MyItemes extends StatelessWidget {
           children: [
             Text(curreny[index].title!,
                 style: Theme.of(context).textTheme.bodyLarge),
-            Text(curreny[index].price!,
+            Text(getFarsiNumber(curreny[index].price!),
                 style: Theme.of(context).textTheme.bodyLarge),
             Text(
-              curreny[index].chenge!,
+              getFarsiNumber(curreny[index].chenge!),
               style: curreny[index].status == "n"
                   ? Theme.of(context).textTheme.displaySmall
                   : Theme.of(context).textTheme.headlineMedium,
