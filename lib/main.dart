@@ -49,7 +49,7 @@ class MyApp extends StatelessWidget {
                 fontSize: 14,
                 fontWeight: FontWeight.w700),
           )),
-      home:const Home(),
+      home: const Home(),
     );
   }
 }
@@ -90,34 +90,70 @@ class _HomeState extends State<Home> {
   //   });
   // }
 
-   Future getResponse()async {
+  Future getResponse() async {
     var url = 'http://sasansafari.com/flutter/api.php?access_key=flutter123456';
     var value = await http.get(Uri.parse(url));
-     developer.log(value.body, name: 'getResponse');
-      if (curreny.isEmpty) {
-        if (value.statusCode == 200) {
-          developer.log(value.body, name: 'mine', error:convert.jsonDecode(value.body) );
-          List jsonList = convert.jsonDecode(value.body);
-          if (jsonList.length > 0) {
-            for (int i = 0; i < jsonList.length; i++) {
-              setState(() {
-                curreny.add(Currency(
-                    id: jsonList[i]["id"],
-                    title: jsonList[i]["title"],
-                    price: jsonList[i]["price"],
-                    chenge: jsonList[i]["changes"],
-                    status: jsonList[i]["status"]));
-              });
-            }
+    //developer.log(value.body, name: 'getResponse');
+    developer.log('getResponse', name: 'WLifeCycle');
+    if (curreny.isEmpty) {
+      if (value.statusCode == 200) {
+        //developer.log(value.body, name: 'mine', error:convert.jsonDecode(value.body) );
+        List jsonList = convert.jsonDecode(value.body);
+        if (jsonList.isNotEmpty) {
+          for (int i = 0; i < jsonList.length; i++) {
+            setState(() {
+              curreny.add(Currency(
+                  id: jsonList[i]["id"],
+                  title: jsonList[i]["title"],
+                  price: jsonList[i]["price"],
+                  chenge: jsonList[i]["changes"],
+                  status: jsonList[i]["status"]));
+            });
           }
         }
       }
-    
+    }
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getResponse();
+    developer.log('initState', name: 'WLifeCycle');
+  }
+
+  @override
+  void didUpdateWidget(covariant Home oldWidget) {
+    // TODO: implement didUpdateWidget
+    super.didUpdateWidget(oldWidget);
+    developer.log('didUpdateWidget', name: 'WLifeCycle');
+  }
+
+  @override
+  void deactivate() {
+    // TODO: implement deactivate
+    super.deactivate();
+    developer.log('deactivate', name: 'WLifeCycle');
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    developer.log('dispose', name: 'WLifeCycle');
+  }
+
+  @override
+  void didChangeDependencies() {
+    // TODO: implement didChangeDependencies
+    super.didChangeDependencies();
+    developer.log('didChangeDependencies', name: 'WLifeCycle');
   }
 
   @override
   Widget build(BuildContext context) {
-    getResponse();
+    developer.log('build', name: 'WLifeCycle');
     return SafeArea(
       child: Scaffold(
         backgroundColor: const Color.fromARGB(255, 243, 243, 243),
