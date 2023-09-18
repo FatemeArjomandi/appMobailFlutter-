@@ -90,36 +90,40 @@ class _HomeState extends State<Home> {
   //   });
   // }
 
-  Future getResponse() async {
+  Future getResponse(BuildContext context) async {
     var url = 'http://sasansafari.com/flutter/api.php?access_key=flutter123456';
     var value = await http.get(Uri.parse(url));
     //developer.log(value.body, name: 'getResponse');
     developer.log('getResponse', name: 'WLifeCycle');
     if (curreny.isEmpty) {
       if (value.statusCode == 200) {
+        _showeSnackbar(context, 'به روز رسانی با موفقیت انجام شد');
         //developer.log(value.body, name: 'mine', error:convert.jsonDecode(value.body) );
         List jsonList = convert.jsonDecode(value.body);
         if (jsonList.isNotEmpty) {
           for (int i = 0; i < jsonList.length; i++) {
-            setState(() {
-              curreny.add(Currency(
-                  id: jsonList[i]["id"],
-                  title: jsonList[i]["title"],
-                  price: jsonList[i]["price"],
-                  chenge: jsonList[i]["changes"],
-                  status: jsonList[i]["status"]));
-            });
+            setState(
+              () {
+                curreny.add(Currency(
+                    id: jsonList[i]["id"],
+                    title: jsonList[i]["title"],
+                    price: jsonList[i]["price"],
+                    chenge: jsonList[i]["changes"],
+                    status: jsonList[i]["status"]));
+              },
+            );
           }
         }
       }
     }
+    return value;
   }
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    getResponse();
+    getResponse(context);
     developer.log('initState', name: 'WLifeCycle');
   }
 
@@ -228,26 +232,9 @@ class _HomeState extends State<Home> {
               ),
               //list
               SizedBox(
-                  height: 350,
-                  child: ListView.separated(
-                    physics: const BouncingScrollPhysics(),
-                    itemCount: curreny.length,
-                    itemBuilder: (context, index) {
-                      return Padding(
-                          padding: const EdgeInsets.fromLTRB(0, 8, 0, 0),
-                          child: MyItemes(index, curreny));
-                    },
-                    separatorBuilder: (BuildContext context, int index) {
-                      if (index % 10 == 0) {
-                        return const Padding(
-                          padding: EdgeInsets.fromLTRB(0, 8, 0, 0),
-                          child: Advertising(),
-                        );
-                      } else {
-                        return const SizedBox.shrink();
-                      }
-                    },
-                  )),
+                height: 350,
+                child: listFutureBuilder(context),
+              ),
               //update button box
               Padding(
                 padding: const EdgeInsets.fromLTRB(0, 12, 0, 0),
@@ -263,8 +250,10 @@ class _HomeState extends State<Home> {
                       SizedBox(
                         height: 50,
                         child: TextButton.icon(
-                          onPressed: () => _showeSnackbar(
-                              context, 'به روز رسانی با موفقیت انجام شد'),
+                          onPressed: () {
+                            curreny.clear();
+                            listFutureBuilder(context);
+                          },
                           icon: const Padding(
                             padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
                             child: Icon(
@@ -304,6 +293,37 @@ class _HomeState extends State<Home> {
           ),
         ),
       ),
+    );
+  }
+
+  FutureBuilder<dynamic> listFutureBuilder(BuildContext context) {
+    return FutureBuilder(
+      future: getResponse(context),
+      builder: (context, snapshot) {
+        return snapshot.hasData
+            ? ListView.separated(
+                physics: const BouncingScrollPhysics(),
+                itemCount: curreny.length,
+                itemBuilder: (context, index) {
+                  return Padding(
+                      padding: const EdgeInsets.fromLTRB(0, 8, 0, 0),
+                      child: MyItemes(index, curreny));
+                },
+                separatorBuilder: (BuildContext context, int index) {
+                  if (index % 10 == 0) {
+                    return const Padding(
+                      padding: EdgeInsets.fromLTRB(0, 8, 0, 0),
+                      child: Advertising(),
+                    );
+                  } else {
+                    return const SizedBox.shrink();
+                  }
+                },
+              )
+            : const Center(
+                child: CircularProgressIndicator(),
+              );
+      },
     );
   }
 
