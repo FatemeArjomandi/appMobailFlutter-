@@ -233,7 +233,7 @@ class _HomeState extends State<Home> {
               ),
               //list
               SizedBox(
-                height: 350,
+                height: MediaQuery.of(context).size.height/2,
                 child: listFutureBuilder(context),
               ),
               //update button box
@@ -241,7 +241,7 @@ class _HomeState extends State<Home> {
                 padding: const EdgeInsets.fromLTRB(0, 12, 0, 0),
                 child: Container(
                   width: double.infinity,
-                  height: 50,
+                  height: MediaQuery.of(context).size.height/16,
                   decoration: const BoxDecoration(
                       borderRadius: BorderRadius.all(Radius.circular(1000)),
                       color: Color.fromARGB(255, 232, 232, 232)),
@@ -249,7 +249,7 @@ class _HomeState extends State<Home> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       SizedBox(
-                        height: 50,
+                        height:  MediaQuery.of(context).size.height/16,
                         child: TextButton.icon(
                           onPressed: () {
                             curreny.clear();
