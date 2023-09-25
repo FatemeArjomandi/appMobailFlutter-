@@ -23,7 +23,7 @@ List<TravelModel> travelList = [
   TravelModel(
       name: 'Tabrize',
       location: 'Iran_AzarBijan_shargi',
-      image: '',
+      image: 'assets/tabriz.png',
       distance: '612',
       temp: '20',
       rating: '4.5',
@@ -33,7 +33,7 @@ List<TravelModel> travelList = [
   TravelModel(
       name: 'Tehran',
       location: 'Iran_Capital_Tehran',
-      image: '',
+      image: 'assets/tehran.jpg',
       distance: '124',
       temp: '23',
       rating: '5',
@@ -43,7 +43,7 @@ List<TravelModel> travelList = [
   TravelModel(
       name: 'Shiraz',
       location: 'Iran_Shiraz',
-      image: '',
+      image: 'assets/shiraz.jpg',
       distance: '504',
       temp: '31',
       rating: '3.2',
@@ -53,7 +53,7 @@ List<TravelModel> travelList = [
   TravelModel(
       name: 'Esfahan',
       location: 'Iran_Esfahan',
-      image: '',
+      image: 'assets/esfahan.jpg',
       distance: '742',
       temp: '36',
       rating: '4.2',
