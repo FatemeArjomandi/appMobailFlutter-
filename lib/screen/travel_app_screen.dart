@@ -9,7 +9,8 @@ class TravelApp extends StatefulWidget {
 }
 
 class _TravelAppState extends State<TravelApp> {
-  int _selectIndex = 0;
+  final int _selectIndex = 0;
+  final double _imageSize = 75;
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +25,7 @@ class _TravelAppState extends State<TravelApp> {
             color: Colors.red,
             child: Stack(
               children: [
+                //image
                 Container(
                   width: double.infinity,
                   height: size.height / 2.1,
@@ -57,6 +59,36 @@ class _TravelAppState extends State<TravelApp> {
                       ),
                     ],
                   ),
+                ),
+                //listViwe
+                ListView.builder(
+                  itemCount: travelList.length,
+                  itemBuilder: (context, index) {
+                    return Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8),
+                          child: InkWell(
+                            onTap: () {},
+                            child: AnimatedContainer(
+                              width: _imageSize,
+                              height: _imageSize,
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  image: AssetImage(travelList[index].image),
+                                  fit: BoxFit.cover,
+                                ),
+                                border:
+                                    Border.all(color: Colors.white, width: 2),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              duration: const Duration(milliseconds: 5000),
+                            ),
+                          ),
+                        ),
+                      ],
+                    );
+                  },
                 ),
               ],
             ),

@@ -23,7 +23,7 @@ List<TravelModel> travelList = [
   TravelModel(
       name: 'Tabrize',
       location: 'Iran_AzarBijan_shargi',
-      image: 'assets/tabriz.png',
+      image: 'assets/tabriz.jpg',
       distance: '612',
       temp: '20',
       rating: '4.5',
@@ -53,7 +53,7 @@ List<TravelModel> travelList = [
   TravelModel(
       name: 'Esfahan',
       location: 'Iran_Esfahan',
-      image: 'assets/esfahan.jpg',
+      image: 'assets/esfahan.jpeg',
       distance: '742',
       temp: '36',
       rating: '4.2',
