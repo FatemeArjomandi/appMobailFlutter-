@@ -9,8 +9,8 @@ class TravelApp extends StatefulWidget {
 }
 
 class _TravelAppState extends State<TravelApp> {
-  final int _selectIndex = 0;
-  final double _imageSize = 75;
+  int _selectIndex = 0;
+  final double _imageSize = 70;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +22,7 @@ class _TravelAppState extends State<TravelApp> {
           Container(
             width: double.infinity,
             height: size.height / 1.8,
-            color: Colors.red,
+            color: Colors.white,
             child: Stack(
               children: [
                 //image
@@ -48,47 +48,42 @@ class _TravelAppState extends State<TravelApp> {
                           width: 45,
                           height: 45,
                           decoration: BoxDecoration(
-                              color: Colors.grey[300], shape: BoxShape.circle),
-                          child: const Icon(Icons.arrow_back_ios_new)),
+                              backgroundBlendMode: BlendMode.colorBurn,
+                              color: Colors.grey[400],
+                              shape: BoxShape.circle),
+                          child: const Icon(
+                            Icons.arrow_back_ios_new,
+                            color: Colors.white,
+                          )),
                       Container(
                         width: 45,
                         height: 45,
                         decoration: BoxDecoration(
-                            color: Colors.grey[300], shape: BoxShape.circle),
-                        child: const Icon(Icons.favorite_border),
+                            backgroundBlendMode: BlendMode.colorBurn,
+                            color: Colors.grey[400],
+                            shape: BoxShape.circle),
+                        child: const Icon(
+                          Icons.favorite_border,
+                          color: Colors.white,
+                        ),
                       ),
                     ],
                   ),
                 ),
                 //listViwe
-                ListView.builder(
-                  itemCount: travelList.length,
-                  itemBuilder: (context, index) {
-                    return Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8),
-                          child: InkWell(
-                            onTap: () {},
-                            child: AnimatedContainer(
-                              width: _imageSize,
-                              height: _imageSize,
-                              decoration: BoxDecoration(
-                                image: DecorationImage(
-                                  image: AssetImage(travelList[index].image),
-                                  fit: BoxFit.cover,
-                                ),
-                                border:
-                                    Border.all(color: Colors.white, width: 2),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              duration: const Duration(milliseconds: 5000),
-                            ),
-                          ),
-                        ),
-                      ],
-                    );
-                  },
+                Positioned(
+                  right: 0,
+                  top: 100,
+                  child: SizedBox(
+                    width: 98,
+                    height: 361,
+                    child: ListView.builder(
+                      itemCount: travelList.length,
+                      itemBuilder: (context, index) {
+                        return itemeImage(index);
+                      },
+                    ),
+                  ),
                 ),
               ],
             ),
@@ -101,5 +96,36 @@ class _TravelAppState extends State<TravelApp> {
         ],
       ),
     ));
+  }
+
+  Widget itemeImage(int index) {
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(8),
+          child: InkWell(
+            onTap: () {
+              setState(() {
+                _selectIndex = index;
+              });
+            },
+            child: AnimatedContainer(
+              width: _selectIndex == index ? _imageSize + 15 : _imageSize,
+              height: _selectIndex == index ? _imageSize + 15 : _imageSize,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage(travelList[index].image),
+                  fit: BoxFit.cover,
+                ),
+                border: Border.all(
+                    color: Colors.white, width: _selectIndex == index ? 4 : 2),
+                borderRadius: BorderRadius.circular(23),
+              ),
+              duration: const Duration(milliseconds: 1000),
+            ),
+          ),
+        ),
+      ],
+    );
   }
 }
