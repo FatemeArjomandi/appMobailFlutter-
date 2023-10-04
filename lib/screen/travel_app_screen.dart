@@ -85,6 +85,34 @@ class _TravelAppState extends State<TravelApp> {
                     ),
                   ),
                 ),
+
+                //name & location
+                Positioned(
+                  bottom: 100,
+                  left: 40,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        travelList[_selectIndex].name,
+                        style: const TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20),
+                      ),
+                      const SizedBox(height: 5),
+                      Row(
+                        children: [
+                          const Icon(Icons.place,
+                              color: Colors.white, size: 15),
+                          Text(travelList[_selectIndex].location,
+                              style: const TextStyle(
+                                  color: Colors.white, fontSize: 16)),
+                        ],
+                      )
+                    ],
+                  ),
+                ),
               ],
             ),
           ),
@@ -119,7 +147,7 @@ class _TravelAppState extends State<TravelApp> {
                 ),
                 border: Border.all(
                     color: Colors.white, width: _selectIndex == index ? 4 : 2),
-                borderRadius: BorderRadius.circular(23),
+                borderRadius: BorderRadius.circular(15),
               ),
               duration: const Duration(milliseconds: 1000),
             ),
