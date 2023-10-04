@@ -76,7 +76,7 @@ class _TravelAppState extends State<TravelApp> {
                   top: 100,
                   child: SizedBox(
                     width: 98,
-                    height: 361,
+                    height: double.maxFinite,
                     child: ListView.builder(
                       itemCount: travelList.length,
                       itemBuilder: (context, index) {
@@ -120,6 +120,83 @@ class _TravelAppState extends State<TravelApp> {
               child: Container(
             width: double.infinity,
             color: Colors.blue,
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Card(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                          side: const BorderSide(
+                              color: Colors.black26, width: 1)),
+                      child: SizedBox(
+                        width: 86,
+                        height: 87,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            const Text(
+                              'distance',
+                              style: TextStyle(fontSize: 13),
+                            ),
+                            Text('${travelList[_selectIndex].distance}Km',
+                                style: const TextStyle(
+                                    color: Colors.blue, fontSize: 16))
+                          ],
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 15),
+                    Card(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                          side: const BorderSide(
+                              color: Colors.black26, width: 1)),
+                      child: SizedBox(
+                        width: 86,
+                        height: 87,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            const Text(
+                              'temp',
+                              style: TextStyle(fontSize: 13),
+                            ),
+                            Text('${travelList[_selectIndex].temp}\u00B0  C',
+                                style: const TextStyle(
+                                    color: Colors.blue, fontSize: 16))
+                          ],
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 15),
+                    Card(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                          side: const BorderSide(
+                              color: Colors.black26, width: 1)),
+                      child: SizedBox(
+                        width: 86,
+                        height: 87,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            const Text(
+                              'rating',
+                              style: TextStyle(fontSize: 13),
+                            ),
+                            Text(travelList[_selectIndex].rating,
+                                style: const TextStyle(
+                                    color: Colors.blue, fontSize: 16))
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                )
+              ],
+            ),
           )),
         ],
       ),
