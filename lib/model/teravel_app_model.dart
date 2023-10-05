@@ -28,7 +28,7 @@ List<TravelModel> travelList = [
       temp: '20',
       rating: '4.5',
       description:
-          'Undoubtedly, Tabriz is a beautiful and deep and full of story city in the contemporary era, the leader and pioneer of Iranian cities',
+          'Undoubtedly, Tabriz is a beautiful and deep and full of story city in the contemporary era, the leader and pioneer of Iranian cities Undoubtedly, Tabriz is a beautiful and deep and full of story city in the contemporary era, the leader and pioneer of Iranian cities',
       price: '212'),
   TravelModel(
       name: 'Tehran',

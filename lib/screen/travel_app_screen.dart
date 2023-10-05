@@ -1,3 +1,5 @@
+import 'package:expandable_text/expandable_text.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tech_blog/model/teravel_app_model.dart';
 
@@ -17,34 +19,47 @@ class _TravelAppState extends State<TravelApp> {
     var size = MediaQuery.of(context).size;
     return Scaffold(
         body: SafeArea(
-      child: Column(
-        children: [
-          Container(
-            width: double.infinity,
-            height: size.height / 1.8,
-            color: Colors.white,
-            child: Stack(
-              children: [
-                //image
-                Container(
-                  width: double.infinity,
-                  height: size.height / 2.1,
-                  decoration: BoxDecoration(
-                      borderRadius: const BorderRadius.only(
-                          bottomLeft: Radius.elliptical(100, 80),
-                          bottomRight: Radius.elliptical(100, 80)),
-                      image: DecorationImage(
-                          image: AssetImage(travelList[_selectIndex].image),
-                          fit: BoxFit.cover)),
-                ),
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            Container(
+              width: double.infinity,
+              height: size.height / 1.8,
+              color: Colors.white,
+              child: Stack(
+                children: [
+                  //image
+                  Container(
+                    width: double.infinity,
+                    height: size.height / 2.1,
+                    decoration: BoxDecoration(
+                        borderRadius: const BorderRadius.only(
+                            bottomLeft: Radius.elliptical(100, 80),
+                            bottomRight: Radius.elliptical(100, 80)),
+                        image: DecorationImage(
+                            image: AssetImage(travelList[_selectIndex].image),
+                            fit: BoxFit.cover)),
+                  ),
 
-                //Icons heder
-                Padding(
-                  padding: const EdgeInsets.only(left: 25, right: 25, top: 25),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Container(
+                  //Icons heder
+                  Padding(
+                    padding:
+                        const EdgeInsets.only(left: 25, right: 25, top: 25),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
+                            width: 45,
+                            height: 45,
+                            decoration: BoxDecoration(
+                                backgroundBlendMode: BlendMode.colorBurn,
+                                color: Colors.grey[400],
+                                shape: BoxShape.circle),
+                            child: const Icon(
+                              Icons.arrow_back_ios_new,
+                              color: Colors.white,
+                            )),
+                        Container(
                           width: 45,
                           height: 45,
                           decoration: BoxDecoration(
@@ -52,153 +67,191 @@ class _TravelAppState extends State<TravelApp> {
                               color: Colors.grey[400],
                               shape: BoxShape.circle),
                           child: const Icon(
-                            Icons.arrow_back_ios_new,
+                            Icons.favorite_border,
                             color: Colors.white,
-                          )),
-                      Container(
-                        width: 45,
-                        height: 45,
-                        decoration: BoxDecoration(
-                            backgroundBlendMode: BlendMode.colorBurn,
-                            color: Colors.grey[400],
-                            shape: BoxShape.circle),
-                        child: const Icon(
-                          Icons.favorite_border,
-                          color: Colors.white,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  //listViwe
+                  Positioned(
+                    right: 0,
+                    top: 100,
+                    child: SizedBox(
+                      width: 98,
+                      height: 300,
+                      child: ListView.builder(
+                        itemCount: travelList.length,
+                        itemBuilder: (context, index) {
+                          return itemeImage(index);
+                        },
+                      ),
+                    ),
+                  ),
+
+                  //name & location
+                  Positioned(
+                    bottom: 100,
+                    left: 40,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          travelList[_selectIndex].name,
+                          style: const TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20),
+                        ),
+                        const SizedBox(height: 5),
+                        Row(
+                          children: [
+                            const Icon(Icons.place,
+                                color: Colors.white, size: 15),
+                            Text(travelList[_selectIndex].location,
+                                style: const TextStyle(
+                                    color: Colors.white, fontSize: 16)),
+                          ],
+                        )
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(
+              width: double.infinity,
+              child: Column(
+                children: [
+                  //card view
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Card(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20),
+                            side: const BorderSide(
+                                color: Colors.black26, width: 1)),
+                        child: SizedBox(
+                          width: 86,
+                          height: 87,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              const Text(
+                                'distance',
+                                style: TextStyle(fontSize: 13),
+                              ),
+                              Text('${travelList[_selectIndex].distance}Km',
+                                  style: const TextStyle(
+                                      color: Colors.blue, fontSize: 16))
+                            ],
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: 15),
+                      Card(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20),
+                            side: const BorderSide(
+                                color: Colors.black26, width: 1)),
+                        child: SizedBox(
+                          width: 86,
+                          height: 87,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              const Text(
+                                'temp',
+                                style: TextStyle(fontSize: 13),
+                              ),
+                              Text('${travelList[_selectIndex].temp}\u00B0  C',
+                                  style: const TextStyle(
+                                      color: Colors.blue, fontSize: 16))
+                            ],
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: 15),
+                      Card(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20),
+                            side: const BorderSide(
+                                color: Colors.black26, width: 1)),
+                        child: SizedBox(
+                          width: 86,
+                          height: 87,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              const Text(
+                                'rating',
+                                style: TextStyle(fontSize: 13),
+                              ),
+                              Text(travelList[_selectIndex].rating,
+                                  style: const TextStyle(
+                                      color: Colors.blue, fontSize: 16))
+                            ],
+                          ),
                         ),
                       ),
                     ],
                   ),
-                ),
-                //listViwe
-                Positioned(
-                  right: 0,
-                  top: 100,
-                  child: SizedBox(
-                    width: 98,
-                    height: double.maxFinite,
-                    child: ListView.builder(
-                      itemCount: travelList.length,
-                      itemBuilder: (context, index) {
-                        return itemeImage(index);
-                      },
+                  const SizedBox(height: 19),
+
+                  //description
+                  SizedBox(
+                    width: 300,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          'description',
+                          style: TextStyle(
+                              fontSize: 17, fontWeight: FontWeight.bold),
+                        ),
+                        const SizedBox(height: 5),
+                        ExpandableText(
+                          travelList[_selectIndex].description,
+                          expandText: 'Read more',
+                          collapseText: 'collapse',
+                          //maxLines: 4,
+                        ),
+                      ],
                     ),
                   ),
-                ),
-
-                //name & location
-                Positioned(
-                  bottom: 100,
-                  left: 40,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                  const SizedBox(height: 27),
+                  //button
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      Text(
-                        travelList[_selectIndex].name,
-                        style: const TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20),
-                      ),
-                      const SizedBox(height: 5),
-                      Row(
+                      Column(
                         children: [
-                          const Icon(Icons.place,
-                              color: Colors.white, size: 15),
-                          Text(travelList[_selectIndex].location,
-                              style: const TextStyle(
-                                  color: Colors.white, fontSize: 16)),
+                          const Text('total price'),
+                          Text(
+                            '${travelList[_selectIndex].price}\$',
+                            style: const TextStyle(
+                                fontSize: 30, fontWeight: FontWeight.bold),
+                          ),
                         ],
+                      ),
+                      SizedBox(
+                        width: 85,
+                        height: 85,
+                        child: FloatingActionButton(
+                          onPressed: () {},
+                          backgroundColor: Colors.black,
+                          child: const Icon(CupertinoIcons.forward),
+                        ),
                       )
                     ],
-                  ),
-                ),
-              ],
+                  )
+                ],
+              ),
             ),
-          ),
-          Expanded(
-              child: Container(
-            width: double.infinity,
-            color: Colors.blue,
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Card(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
-                          side: const BorderSide(
-                              color: Colors.black26, width: 1)),
-                      child: SizedBox(
-                        width: 86,
-                        height: 87,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            const Text(
-                              'distance',
-                              style: TextStyle(fontSize: 13),
-                            ),
-                            Text('${travelList[_selectIndex].distance}Km',
-                                style: const TextStyle(
-                                    color: Colors.blue, fontSize: 16))
-                          ],
-                        ),
-                      ),
-                    ),
-                    const SizedBox(width: 15),
-                    Card(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
-                          side: const BorderSide(
-                              color: Colors.black26, width: 1)),
-                      child: SizedBox(
-                        width: 86,
-                        height: 87,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            const Text(
-                              'temp',
-                              style: TextStyle(fontSize: 13),
-                            ),
-                            Text('${travelList[_selectIndex].temp}\u00B0  C',
-                                style: const TextStyle(
-                                    color: Colors.blue, fontSize: 16))
-                          ],
-                        ),
-                      ),
-                    ),
-                    const SizedBox(width: 15),
-                    Card(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
-                          side: const BorderSide(
-                              color: Colors.black26, width: 1)),
-                      child: SizedBox(
-                        width: 86,
-                        height: 87,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            const Text(
-                              'rating',
-                              style: TextStyle(fontSize: 13),
-                            ),
-                            Text(travelList[_selectIndex].rating,
-                                style: const TextStyle(
-                                    color: Colors.blue, fontSize: 16))
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                )
-              ],
-            ),
-          )),
-        ],
+          ],
+        ),
       ),
     ));
   }
