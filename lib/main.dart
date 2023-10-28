@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:tech_blog/gen/assets.gen.dart';
+import 'package:tech_blog/splash/splash_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -49,9 +49,6 @@ class MyApp extends StatelessWidget {
                   fontSize: 14,
                   fontWeight: FontWeight.w700),
             )),
-        home: Scaffold(
-          body: Center(child:Image(image: Assets.image.logo.provider())
-          ,),
-        ));
+        home: SplashScreen());
   }
 }
