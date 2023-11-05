@@ -1,8 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:tech_blog/splash/splash_screen.dart';
+import 'package:tech_blog/theme/colors.dart';
 
 void main() {
+  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+      statusBarColor: SolidColor.statusBarColor,
+      statusBarIconBrightness: Brightness.dark,
+      systemNavigationBarColor: SolidColor.systemNavigationBarColor,
+      systemNavigationBarIconBrightness: Brightness.dark));
+
   runApp(const MyApp());
 }
 
@@ -49,6 +57,6 @@ class MyApp extends StatelessWidget {
                   fontSize: 14,
                   fontWeight: FontWeight.w700),
             )),
-        home: SplashScreen());
+        home: const SplashScreen());
   }
 }
