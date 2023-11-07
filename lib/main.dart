@@ -33,10 +33,17 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
             fontFamily: "Rubik",
             textTheme: const TextTheme(
-              displayLarge: TextStyle(
+              headlineLarge: TextStyle(
                   fontFamily: 'Rubik',
                   fontSize: 16,
-                  fontWeight: FontWeight.w900),
+                  fontWeight: FontWeight.w700,
+                  color: SolidColor.posterTitel),
+              titleLarge:TextStyle(
+                fontFamily: 'Rubik',
+                fontSize: 14,
+                fontWeight: FontWeight.w300,
+                color: SolidColor.posterSubTitel
+              ),
               bodyLarge: TextStyle(
                   fontFamily: 'Rubik',
                   fontSize: 13,
