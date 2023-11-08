@@ -14,6 +14,7 @@ class HomeScreen extends StatelessWidget {
         body: Column(
           children: [
             const SizedBox(height: 16),
+            //appBar
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
@@ -26,6 +27,7 @@ class HomeScreen extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 8),
+            //poster
             Stack(
               children: [
                 Container(
@@ -55,30 +57,75 @@ class HomeScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           Text(
-                            homePagePosterMap["writer"]+ " _ " + homePagePosterMap["date"],
+                            homePagePosterMap["writer"] +
+                                " _ " +
+                                homePagePosterMap["date"],
                             style: Theme.of(context).textTheme.titleLarge,
                           ),
                           Row(
                             children: [
-                              
                               Text(
-                                homePagePosterMap[ "viwe"],
+                                homePagePosterMap["viwe"],
                                 style: Theme.of(context).textTheme.titleLarge,
                               ),
                               const SizedBox(width: 8),
-                              const Icon(Icons.remove_red_eye_sharp, color: Colors.white,size: 17,),
+                              const Icon(
+                                Icons.remove_red_eye_sharp,
+                                color: Colors.white,
+                                size: 17,
+                              ),
                             ],
                           ),
                         ],
                       ),
                       Text(
-                       homePagePosterMap["titel"],
+                        homePagePosterMap["titel"],
                         style: Theme.of(context).textTheme.headlineLarge,
                       )
                     ],
                   ),
                 )
               ],
+            ),
+            const SizedBox(height: 16),
+            //Tag
+            SizedBox(
+              height: 60,
+              child: ListView.builder(
+                itemCount: tagList.length,
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding: EdgeInsets.fromLTRB(
+                        0, 8, index == 0 ? size.width / 13 : 15, 8),
+                    child: Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(24),
+                          gradient: const LinearGradient(
+                              colors: GradiantColor.tags,
+                              begin: Alignment.bottomRight,
+                              end: Alignment.bottomLeft)),
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 30, right: 10),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const ImageIcon(
+                                AssetImage('assets/icons/hashTag.png'),
+                                color: Colors.white,
+                                size: 15),
+                            const SizedBox(width: 20),
+                            Text(
+                              tagList[index].titel,
+                              style: Theme.of(context).textTheme.displayMedium,
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                  );
+                },
+              ),
             )
           ],
         ),
