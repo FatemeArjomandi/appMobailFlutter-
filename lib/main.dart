@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:tech_blog/splash/splash_screen.dart';
+import 'package:tech_blog/viwes/splash_screen.dart';
 import 'package:tech_blog/theme/colors.dart';
 
 void main() {
@@ -38,12 +38,20 @@ class MyApp extends StatelessWidget {
                   fontSize: 16,
                   fontWeight: FontWeight.w700,
                   color: SolidColor.posterTitel),
-              titleLarge:TextStyle(
-                fontFamily: 'Rubik',
-                fontSize: 14,
-                fontWeight: FontWeight.w300,
-                color: SolidColor.posterSubTitel
-              ),
+              titleLarge: TextStyle(
+                  fontFamily: 'Rubik',
+                  fontSize: 14,
+                  fontWeight: FontWeight.w300,
+                  color: SolidColor.posterSubTitel),
+                  titleMedium: TextStyle(
+                  fontFamily: 'Rubik',
+                  fontSize: 14,
+                  fontWeight: FontWeight.w300,
+                  color: SolidColor.textTitle),titleSmall: TextStyle(
+                  fontFamily: 'Rubik',
+                  fontSize: 16,
+                  fontWeight: FontWeight.w700,
+                  color: SolidColor.textTitle),
               bodyLarge: TextStyle(
                   fontFamily: 'Rubik',
                   fontSize: 13,
@@ -55,7 +63,7 @@ class MyApp extends StatelessWidget {
                   fontWeight: FontWeight.w300),
               displaySmall: TextStyle(
                   fontFamily: 'Rubik',
-                  color: Colors.red,
+                  color: SolidColor.colorTitle,
                   fontSize: 14,
                   fontWeight: FontWeight.w700),
               headlineMedium: TextStyle(

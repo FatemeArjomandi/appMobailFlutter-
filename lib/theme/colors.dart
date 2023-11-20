@@ -19,9 +19,14 @@ class SolidColor {
 
 class GradiantColor {
   static const List<Color> buttomNav = [Color(0xFF19005E), Color(0xFF440457)];
+  static const List<Color> buttomNavBakgrand = [Colors.transparent, Colors.white10, Colors.transparent];
   static const List<Color> tags = [
     Color(0xFF000000),
     Color.fromARGB(255, 63, 63, 63)
+  ];
+  static const List<Color> blogpost = [
+    Color.fromARGB(255, 0, 0, 0),
+    Color.fromARGB(0, 0, 0, 0)
   ];
   static const List<Color> homePosterCoverGradiant = [
     Color.fromARGB(0, 0, 0, 0),
