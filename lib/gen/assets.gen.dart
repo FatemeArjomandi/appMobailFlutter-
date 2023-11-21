@@ -37,6 +37,10 @@ class $AssetsIconsGen {
 class $AssetsImageGen {
   const $AssetsImageGen();
 
+  /// File path: assets/image/imagePorofil.png
+  AssetGenImage get imagePorofil =>
+      const AssetGenImage('assets/image/imagePorofil.png');
+
   /// File path: assets/image/imageUrl.png
   AssetGenImage get imageUrl =>
       const AssetGenImage('assets/image/imageUrl.png');
@@ -49,7 +53,7 @@ class $AssetsImageGen {
       const AssetGenImage('assets/image/programming.png');
 
   /// List of all assets
-  List<AssetGenImage> get values => [imageUrl, logo, programming];
+  List<AssetGenImage> get values => [imagePorofil, imageUrl, logo, programming];
 }
 
 class Assets {
