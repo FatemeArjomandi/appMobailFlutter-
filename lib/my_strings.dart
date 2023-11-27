@@ -5,5 +5,9 @@ class Strings {
   static const String submitArtical ='ارسال مقاله';
   static const String submitPodcast ='ارسال پادکست';
   static const String changeImageProfil ='ویرایش عکس پروفایل';
+  static const String welcome ='''به تک بلاگ خوش آمدی
+
+برای ارسال مطلب و پادکست باید حتما
+ ثبت نام کنی''';
 
 }

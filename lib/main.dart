@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:tech_blog/viwes/splash_screen.dart';
+import 'package:tech_blog/viwes/register_into.dart';
 import 'package:tech_blog/my_colors.dart';
 
 void main() {
@@ -38,6 +38,11 @@ class MyApp extends StatelessWidget {
                   fontSize: 16,
                   fontWeight: FontWeight.w700,
                   color: SolidColor.posterTitel),
+              headlineMedium: TextStyle(
+                  fontFamily: 'Rubik',
+                  fontSize: 14,
+                  fontWeight: FontWeight.w700,
+                  color: SolidColor.posterTitel),
               titleLarge: TextStyle(
                   fontFamily: 'Rubik',
                   fontSize: 14,
@@ -67,12 +72,7 @@ class MyApp extends StatelessWidget {
                   color: SolidColor.colorTitle,
                   fontSize: 14,
                   fontWeight: FontWeight.w700),
-              headlineMedium: TextStyle(
-                  fontFamily: 'Rubik',
-                  color: Colors.green,
-                  fontSize: 14,
-                  fontWeight: FontWeight.w700),
             )),
-        home: const SplashScreen());
+        home: const RegisterInto());
   }
 }
