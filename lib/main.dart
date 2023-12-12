@@ -31,6 +31,33 @@ class MyApp extends StatelessWidget {
           //Locale('en'), // Spanish
         ],
         theme: ThemeData(
+            inputDecorationTheme: InputDecorationTheme(
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(16),
+                borderSide:
+                    const BorderSide(width: 2, color: SolidColor.primeryColor),
+              ),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(16),
+                borderSide: const BorderSide(width: 2),
+              ),
+            ),
+            elevatedButtonTheme: ElevatedButtonThemeData(
+              style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.resolveWith(
+                (states) {
+                  if (states.contains(MaterialState.pressed)) {
+                    return SolidColor.subText;
+                  }
+                  return SolidColor.primeryColor;
+                },
+              ), textStyle: MaterialStateProperty.resolveWith((states) {
+                if (states.contains(MaterialState.pressed)) {
+                  return Theme.of(context).textTheme.headlineMedium;
+                }
+                return Theme.of(context).textTheme.bodyLarge;
+              })),
+            ),
             fontFamily: "Rubik",
             textTheme: const TextTheme(
               headlineLarge: TextStyle(
@@ -61,6 +88,7 @@ class MyApp extends StatelessWidget {
               bodyLarge: TextStyle(
                   fontFamily: 'Rubik',
                   fontSize: 13,
+                  color: Colors.white,
                   fontWeight: FontWeight.w300),
               displayMedium: TextStyle(
                   fontFamily: 'Rubik',

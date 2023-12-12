@@ -4,6 +4,8 @@ import 'package:tech_blog/models/facke_data.dart';
 import 'package:tech_blog/my_strings.dart';
 import 'package:tech_blog/my_colors.dart';
 
+import '../my_component.dart';
+
 class HomeScreen extends StatelessWidget {
   const HomeScreen({
     super.key,
@@ -248,28 +250,9 @@ class HomePageTagList extends StatelessWidget {
           return Padding(
             padding:
                 EdgeInsets.fromLTRB(0, 8, index == 0 ? size.width / 13 : 15, 8),
-            child: Container(
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(24),
-                  gradient: const LinearGradient(
-                      colors: GradiantColor.tags,
-                      begin: Alignment.bottomRight,
-                      end: Alignment.bottomLeft)),
-              child: Padding(
-                padding: const EdgeInsets.only(left: 30, right: 10),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const ImageIcon(AssetImage('assets/icons/hashTag.png'),
-                        color: Colors.white, size: 15),
-                    const SizedBox(width: 20),
-                    Text(
-                      tagList[index].titel,
-                      style: Theme.of(context).textTheme.displayMedium,
-                    )
-                  ],
-                ),
-              ),
+            child: TagListView(
+              size: size,
+              index: index,
             ),
           );
         },

@@ -14,8 +14,11 @@ List<HashTagModel> tagList = [
   HashTagModel(titel: 'کاتلین'),
   HashTagModel(titel: 'برنامه نویسی وب'),
   HashTagModel(titel: 'دارت'),
-  HashTagModel(titel: 'c++')
+  HashTagModel(titel: 'c++'),
+  HashTagModel(titel: 'c#')
 ];
+
+List <HashTagModel> selectedTags=[];
 
 //blogList
 List<BlogModel> blogList = [
