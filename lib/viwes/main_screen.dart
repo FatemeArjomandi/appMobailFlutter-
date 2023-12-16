@@ -14,25 +14,71 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   int selectedIndex = 0;
+  final GlobalKey<ScaffoldState> _key = GlobalKey();
+
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
+    var bodyMargin = size.width / 10;
     // List<Widget> listPageBody = [
     //   HomeScreen(size: size),
     //   PorofilScreen(size: size),
     // ];
     return SafeArea(
         child: Scaffold(
+      key: _key,
+      drawer: Drawer(
+        backgroundColor: SolidColor.scafoldBg,
+        child: Padding(
+          padding: EdgeInsets.only(left: bodyMargin, right: bodyMargin),
+          child: ListView(
+            children: [
+              DrawerHeader(
+                  child: Image.asset(Assets.image.logo.path, scale: 3)),
+              ListTile(
+                title: Text('پروفایل کاربری',
+                    style: Theme.of(context).textTheme.titleMedium),
+                onTap: () {},
+              ),
+              const Divider(color: Colors.grey),
+              ListTile(
+                title: Text('درباره تک‌ بلاگ',
+                    style: Theme.of(context).textTheme.titleMedium),
+                onTap: () {},
+              ),
+              const Divider(color: Colors.grey),
+              ListTile(
+                title: Text('اشتراک گذاری تک بلاگ',
+                    style: Theme.of(context).textTheme.titleMedium),
+                onTap: () {},
+              ),
+              const Divider(color: Colors.grey),
+              ListTile(
+                title: Text('تک‌ بلاگ در گیت هاب',
+                    style: Theme.of(context).textTheme.titleMedium),
+                onTap: () {},
+              ),
+              const Divider(color: Colors.grey),
+            ],
+          ),
+        ),
+      ),
       extendBody: true,
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         backgroundColor: SolidColor.scafoldBg,
         elevation: 0,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            const Icon(
-              Icons.menu,
-              color: Colors.black,
+            InkWell(
+              onTap: () {
+                _key.currentState!.openDrawer();
+              },
+              child: const Icon(
+                Icons.menu,
+                color: Colors.black,
+              ),
             ),
             Image(
               image: Assets.image.logo.provider(),
