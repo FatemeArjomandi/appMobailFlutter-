@@ -63,7 +63,8 @@ class _MyCatsState extends State<MyCats> {
                     )),
             //tagList
             Padding(
-              padding:  EdgeInsets.only(top: 32, left: bodyMargin, right: bodyMargin),
+              padding:
+                  EdgeInsets.only(top: 32, left: bodyMargin, right: bodyMargin),
               child: SizedBox(
                 height: 100,
                 width: double.maxFinite,
@@ -81,7 +82,11 @@ class _MyCatsState extends State<MyCats> {
                     return InkWell(
                         onTap: () {
                           setState(() {
-                            selectedTags.add(tagList[index]);
+                            if (!selectedTags.contains(tagList[index])) {
+                              selectedTags.add(tagList[index]);
+                            } else {
+                              debugPrint('${tagList[index].titel} is exste');
+                            }
                           });
                         },
                         child: TagListView(size: size, index: index));
