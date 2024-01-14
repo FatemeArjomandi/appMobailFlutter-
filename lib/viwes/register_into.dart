@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:tech_blog/my_strings.dart';
+import 'package:tech_blog/component/my_strings.dart';
 import 'package:tech_blog/viwes/my_cats.dart';
 import 'package:validators/validators.dart';
 

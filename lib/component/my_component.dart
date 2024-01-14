@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'models/facke_data.dart';
+import '../models/facke_data.dart';
 import 'my_colors.dart';
 
 class ThegDivider extends StatelessWidget {

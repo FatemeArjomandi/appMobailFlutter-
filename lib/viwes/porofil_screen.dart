@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:tech_blog/gen/assets.gen.dart';
-import 'package:tech_blog/my_strings.dart';
-import 'package:tech_blog/my_colors.dart';
+import 'package:tech_blog/component/my_strings.dart';
+import 'package:tech_blog/component/my_colors.dart';
 
-import '../my_component.dart';
+import '../component/my_component.dart';
 
 class PorofilScreen extends StatelessWidget {
   const PorofilScreen({
