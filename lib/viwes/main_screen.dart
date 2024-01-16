@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:get/state_manager.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:tech_blog/gen/assets.gen.dart';
 import 'package:tech_blog/component/my_colors.dart';
 import 'package:tech_blog/viwes/porofil_screen.dart';
@@ -45,7 +47,21 @@ class MainScreen extends StatelessWidget {
                     ListTile(
                       title: Text('اشتراک گذاری تک بلاگ',
                           style: Theme.of(context).textTheme.titleMedium),
-                      onTap: () {},
+                      onTap: () async {
+                        final result = await Share.shareWithResult(
+                            'check out my website https://example.com');
+
+                        if (result.status == ShareResultStatus.success) {
+                          _key.currentState!.closeDrawer();
+                          ScaffoldMessenger.of(context).showSnackBar(
+                               SnackBar(
+                                backgroundColor: SolidColor.primeryColor,
+                                shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(12))),
+                                  content:
+                                      Text('Thank you for sharing my website!',style: Theme.of(context).textTheme.headlineLarge,),
+                                  duration: const Duration(seconds: 3)));
+                        }
+                      },
                     ),
                     const Divider(color: Colors.grey),
                     ListTile(
