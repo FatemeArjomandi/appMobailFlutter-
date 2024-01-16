@@ -1,23 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:get/state_manager.dart';
 import 'package:tech_blog/gen/assets.gen.dart';
 import 'package:tech_blog/component/my_colors.dart';
 import 'package:tech_blog/viwes/porofil_screen.dart';
 
 import 'home_screen.dart';
 
-class MainScreen extends StatefulWidget {
-  const MainScreen({super.key});
-
-  @override
-  State<MainScreen> createState() => _MainScreenState();
-}
-
-class _MainScreenState extends State<MainScreen> {
-  int selectedIndex = 0;
+class MainScreen extends StatelessWidget {
+  MainScreen({super.key});
   final GlobalKey<ScaffoldState> _key = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
+    RxInt selectedIndex = 0.obs;
     var size = MediaQuery.of(context).size;
     var bodyMargin = size.width / 10;
     // List<Widget> listPageBody = [
@@ -26,86 +21,85 @@ class _MainScreenState extends State<MainScreen> {
     // ];
     return SafeArea(
         child: Scaffold(
-      key: _key,
-      drawer: Drawer(
-        backgroundColor: SolidColor.scafoldBg,
-        child: Padding(
-          padding: EdgeInsets.only(left: bodyMargin, right: bodyMargin),
-          child: ListView(
-            children: [
-              DrawerHeader(
-                  child: Image.asset(Assets.image.logo.path, scale: 3)),
-              ListTile(
-                title: Text('پروفایل کاربری',
-                    style: Theme.of(context).textTheme.titleMedium),
-                onTap: () {},
+            key: _key,
+            drawer: Drawer(
+              backgroundColor: SolidColor.scafoldBg,
+              child: Padding(
+                padding: EdgeInsets.only(left: bodyMargin, right: bodyMargin),
+                child: ListView(
+                  children: [
+                    DrawerHeader(
+                        child: Image.asset(Assets.image.logo.path, scale: 3)),
+                    ListTile(
+                      title: Text('پروفایل کاربری',
+                          style: Theme.of(context).textTheme.titleMedium),
+                      onTap: () {},
+                    ),
+                    const Divider(color: Colors.grey),
+                    ListTile(
+                      title: Text('درباره تک‌ بلاگ',
+                          style: Theme.of(context).textTheme.titleMedium),
+                      onTap: () {},
+                    ),
+                    const Divider(color: Colors.grey),
+                    ListTile(
+                      title: Text('اشتراک گذاری تک بلاگ',
+                          style: Theme.of(context).textTheme.titleMedium),
+                      onTap: () {},
+                    ),
+                    const Divider(color: Colors.grey),
+                    ListTile(
+                      title: Text('تک‌ بلاگ در گیت هاب',
+                          style: Theme.of(context).textTheme.titleMedium),
+                      onTap: () {},
+                    ),
+                    const Divider(color: Colors.grey),
+                  ],
+                ),
               ),
-              const Divider(color: Colors.grey),
-              ListTile(
-                title: Text('درباره تک‌ بلاگ',
-                    style: Theme.of(context).textTheme.titleMedium),
-                onTap: () {},
+            ),
+            extendBody: true,
+            appBar: AppBar(
+              automaticallyImplyLeading: false,
+              backgroundColor: SolidColor.scafoldBg,
+              elevation: 0,
+              title: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  InkWell(
+                    onTap: () {
+                      _key.currentState!.openDrawer();
+                    },
+                    child: const Icon(
+                      Icons.menu,
+                      color: Colors.black,
+                    ),
+                  ),
+                  Image(
+                    image: Assets.image.logo.provider(),
+                    height: size.height / 13.6,
+                  ),
+                  const Icon(
+                    Icons.search,
+                    color: Colors.black,
+                  ),
+                ],
               ),
-              const Divider(color: Colors.grey),
-              ListTile(
-                title: Text('اشتراک گذاری تک بلاگ',
-                    style: Theme.of(context).textTheme.titleMedium),
-                onTap: () {},
-              ),
-              const Divider(color: Colors.grey),
-              ListTile(
-                title: Text('تک‌ بلاگ در گیت هاب',
-                    style: Theme.of(context).textTheme.titleMedium),
-                onTap: () {},
-              ),
-              const Divider(color: Colors.grey),
-            ],
-          ),
-        ),
-      ),
-      extendBody: true,
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        backgroundColor: SolidColor.scafoldBg,
-        elevation: 0,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            InkWell(
-              onTap: () {
-                _key.currentState!.openDrawer();
+            ),
+            bottomNavigationBar: BottomNavigationBar(
+              changeBodyMain: (value) {
+                selectedIndex.value = value;
               },
-              child: const Icon(
-                Icons.menu,
-                color: Colors.black,
+            ),
+            body: Obx(
+              () => IndexedStack(
+                index: selectedIndex.value,
+                children: [
+                  HomeScreen(size: size),
+                  PorofilScreen(size: size),
+                ],
               ),
-            ),
-            Image(
-              image: Assets.image.logo.provider(),
-              height: size.height / 13.6,
-            ),
-            const Icon(
-              Icons.search,
-              color: Colors.black,
-            ),
-          ],
-        ),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        changeBodyMain: (value) {
-          setState(() {
-            selectedIndex = value;
-          });
-        },
-      ),
-      body: IndexedStack(
-        index: selectedIndex,
-        children: [
-          HomeScreen(size: size),
-          PorofilScreen(size: size),
-        ],
-      ),
-    ));
+            )));
   }
 }
 
