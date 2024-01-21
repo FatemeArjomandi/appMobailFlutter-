@@ -1,4 +1,7 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../models/facke_data.dart';
 import 'my_colors.dart';
@@ -50,5 +53,14 @@ class TagListView extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+mylauncher(String url) async {
+  var uri = Uri.parse(url);
+  if (await launchUrl(uri)) {
+    await launchUrl(uri);
+  } else {
+    log('Could not url :$uri');
   }
 }
