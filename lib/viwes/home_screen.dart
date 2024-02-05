@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:tech_blog/controller/home_screen_controller.dart';
 import 'package:tech_blog/gen/assets.gen.dart';
 import 'package:tech_blog/models/facke_data.dart';
 import 'package:tech_blog/component/my_strings.dart';
@@ -13,6 +15,7 @@ class HomeScreen extends StatelessWidget {
   });
 
   final Size size;
+  
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +26,7 @@ class HomeScreen extends StatelessWidget {
         const SizedBox(height: 16),
         HomePageTagList(size: size),
         SeeMoreBlogList(size: size),
-        HomePageBlogList(size: size),
+        TopVisited(size: size),
         SeeMorePotcastList(size: size),
         HomePagePotcastList(size: size),
       ],
@@ -107,8 +110,8 @@ class SeeMorePotcastList extends StatelessWidget {
   }
 }
 
-class HomePageBlogList extends StatelessWidget {
-  const HomePageBlogList({
+class TopVisited extends StatelessWidget {
+  const TopVisited({
     super.key,
     required this.size,
   });
@@ -117,85 +120,90 @@ class HomePageBlogList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final homeScreenCotroller = Get.find<HomeScreenCotroller>();
+
     return SizedBox(
       height: 210,
-      child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        itemCount: blogList.length,
-        itemBuilder: (context, index) {
-          return Stack(children: [
-            Padding(
-              padding:
-                  EdgeInsets.only(right: index == 0 ? size.width / 13 : 15),
-              child: Column(
-                children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                          image: AssetImage(blogList[index].imageUrl),
-                          fit: BoxFit.cover),
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-                    foregroundDecoration: BoxDecoration(
+      child: Obx(
+        () => ListView.builder(
+          scrollDirection: Axis.horizontal,
+          itemCount: homeScreenCotroller.topVisited.length,
+          itemBuilder: (context, index) {
+            return Stack(children: [
+              Padding(
+                padding:
+                    EdgeInsets.only(right: index == 0 ? size.width / 13 : 15),
+                child: Column(
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                            image: NetworkImage(
+                                homeScreenCotroller.topVisited[index].image!),
+                            fit: BoxFit.cover),
                         borderRadius: BorderRadius.circular(16),
-                        gradient: const LinearGradient(
-                            colors: GradiantColor.blogpost,
-                            begin: Alignment.bottomCenter,
-                            end: Alignment.topCenter)),
-                    height: 150,
-                    width: 150,
-                  ),
-                  const SizedBox(height: 5),
-                  SizedBox(
-                    width: 150,
-                    child: Text(
-                      blogList[0].titel,
-                      style: Theme.of(context).textTheme.titleMedium,
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 2,
+                      ),
+                      foregroundDecoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(16),
+                          gradient: const LinearGradient(
+                              colors: GradiantColor.blogpost,
+                              begin: Alignment.bottomCenter,
+                              end: Alignment.topCenter)),
+                      height: 150,
+                      width: 150,
                     ),
-                  )
-                ],
+                    const SizedBox(height: 5),
+                    SizedBox(
+                      width: 150,
+                      child: Text(
+                        homeScreenCotroller.topVisited[index].title!,
+                        style: Theme.of(context).textTheme.titleMedium,
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 2,
+                      ),
+                    )
+                  ],
+                ),
               ),
-            ),
-            Positioned(
-              bottom: 8,
-              left: 0,
-              right: 0,
-              child: UnconstrainedBox(
-                child: Padding(
-                  padding:
-                      EdgeInsets.only(right: index == 0 ? size.width / 13 : 15),
-                  child: SizedBox(
-                    height: 150,
-                    width: 150,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Text(homePagePosterMap["writer"],
-                            style: Theme.of(context).textTheme.titleLarge),
-                        Row(
-                          children: [
-                            Text(
-                              homePagePosterMap["viwe"],
-                              style: Theme.of(context).textTheme.titleLarge,
-                            ),
-                            const SizedBox(width: 8),
-                            const Icon(
-                              Icons.remove_red_eye_sharp,
-                              color: Colors.white,
-                              size: 17,
-                            )
-                          ],
-                        )
-                      ],
+              Positioned(
+                bottom: 8,
+                left: 0,
+                right: 0,
+                child: UnconstrainedBox(
+                  child: Padding(
+                    padding: EdgeInsets.only(
+                        right: index == 0 ? size.width / 13 : 15),
+                    child: SizedBox(
+                      height: 150,
+                      width: 150,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Text(homeScreenCotroller.topVisited[index].author!,
+                              style: Theme.of(context).textTheme.titleLarge),
+                          Row(
+                            children: [
+                              Text(
+                                homeScreenCotroller.topVisited[index].view!,
+                                style: Theme.of(context).textTheme.titleLarge,
+                              ),
+                              const SizedBox(width: 8),
+                              const Icon(
+                                Icons.remove_red_eye_sharp,
+                                color: Colors.white,
+                                size: 17,
+                              )
+                            ],
+                          )
+                        ],
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
-          ]);
-        },
+            ]);
+          },
+        ),
       ),
     );
   }

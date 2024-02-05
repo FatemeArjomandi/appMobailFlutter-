@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:dio/dio.dart';
 
@@ -11,7 +10,7 @@ class DioServices {
         .get(url,
             options: Options(responseType: ResponseType.json, method: 'Get'))
         .then((response) {
-      log(response.toString());
+      //log(response.toString());
       return response;
     });
   }

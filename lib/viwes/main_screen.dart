@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/state_manager.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:tech_blog/component/api_constant.dart';
 import 'package:tech_blog/component/my_component.dart';
+import 'package:tech_blog/controller/home_screen_controller.dart';
 import 'package:tech_blog/gen/assets.gen.dart';
 import 'package:tech_blog/component/my_colors.dart';
+import 'package:tech_blog/services/dio_service.dart';
 import 'package:tech_blog/viwes/porofil_screen.dart';
 
 import '../component/my_strings.dart';
@@ -13,9 +16,13 @@ import 'home_screen.dart';
 class MainScreen extends StatelessWidget {
   MainScreen({super.key});
   final GlobalKey<ScaffoldState> _key = GlobalKey();
+  final HomeScreenCotroller homeScreenCotroller = Get.put(HomeScreenCotroller());
 
   @override
   Widget build(BuildContext context) {
+    //DioServices().getMethod(ApiCastant.getHomeItems);
+    //homeScreenCotroller.getHomeItems();
+
     RxInt selectedIndex = 0.obs;
     var size = MediaQuery.of(context).size;
     var bodyMargin = size.width / 10;
