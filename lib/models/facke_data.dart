@@ -124,16 +124,16 @@ List<BlogModel> blogList = [
 ];
 
 
-List<PotcastModel> potcastList=[
-  PotcastModel(imageUrl: 'assets/image/imageUrl.png', titel: 'رمزون'),
-  PotcastModel(imageUrl: 'assets/image/imageUrl.png', titel: 'رادیو کدیاد'),
-  PotcastModel(imageUrl: 'assets/image/imageUrl.png', titel: 'تکنوکست'),
-  PotcastModel(imageUrl: 'assets/image/imageUrl.png', titel: 'مطلب'),
-  PotcastModel(imageUrl: 'assets/image/imageUrl.png', titel: 'رادیو جوان'),
-  PotcastModel(imageUrl: 'assets/image/imageUrl.png', titel: 'نکتیت'),
-  PotcastModel(imageUrl: 'assets/image/imageUrl.png', titel: 'رادیو'),
-  PotcastModel(imageUrl: 'assets/image/imageUrl.png', titel: 'شعر'),
-  PotcastModel(imageUrl: 'assets/image/imageUrl.png', titel: 'نثر'),
+List<PotcastModelFake> potcastList=[
+  PotcastModelFake(imageUrl: 'assets/image/imageUrl.png', titel: 'رمزون'),
+  PotcastModelFake(imageUrl: 'assets/image/imageUrl.png', titel: 'رادیو کدیاد'),
+  PotcastModelFake(imageUrl: 'assets/image/imageUrl.png', titel: 'تکنوکست'),
+  PotcastModelFake(imageUrl: 'assets/image/imageUrl.png', titel: 'مطلب'),
+  PotcastModelFake(imageUrl: 'assets/image/imageUrl.png', titel: 'رادیو جوان'),
+  PotcastModelFake(imageUrl: 'assets/image/imageUrl.png', titel: 'نکتیت'),
+  PotcastModelFake(imageUrl: 'assets/image/imageUrl.png', titel: 'رادیو'),
+  PotcastModelFake(imageUrl: 'assets/image/imageUrl.png', titel: 'شعر'),
+  PotcastModelFake(imageUrl: 'assets/image/imageUrl.png', titel: 'نثر'),
 ];
 
 

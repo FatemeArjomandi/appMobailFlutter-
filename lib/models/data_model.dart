@@ -25,8 +25,8 @@ class BlogModel {
     required this.writer,
   });
 }
-class PotcastModel {
+class PotcastModelFake {
   String imageUrl;
   String titel;
-  PotcastModel({required this.imageUrl,required this.titel});
+  PotcastModelFake({required this.imageUrl,required this.titel});
 }
