@@ -1,6 +1,8 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:tech_blog/controller/home_screen_controller.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../models/facke_data.dart';
@@ -30,26 +32,29 @@ class TagListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(24),
-          gradient: const LinearGradient(
-              colors: GradiantColor.tags,
-              begin: Alignment.bottomRight,
-              end: Alignment.bottomLeft)),
-      child: Padding(
-        padding: const EdgeInsets.only(left: 30, right: 10),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const ImageIcon(AssetImage('assets/icons/hashTag.png'),
-                color: Colors.white, size: 15),
-            const SizedBox(width: 20),
-            Text(
-              tagList[index].titel,
-              style: Theme.of(context).textTheme.displayMedium,
-            )
-          ],
+    final homeScreenCotroller = Get.find<HomeScreenCotroller>();
+    return Obx(
+      () => Container(
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(24),
+            gradient: const LinearGradient(
+                colors: GradiantColor.tags,
+                begin: Alignment.bottomRight,
+                end: Alignment.bottomLeft)),
+        child: Padding(
+          padding: const EdgeInsets.only(left: 30, right: 10),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const ImageIcon(AssetImage('assets/icons/hashTag.png'),
+                  color: Colors.white, size: 15),
+              const SizedBox(width: 20),
+              Text(
+                homeScreenCotroller.tags[index].title!,
+                style: Theme.of(context).textTheme.displayMedium,
+              )
+            ],
+          ),
         ),
       ),
     );

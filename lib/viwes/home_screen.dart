@@ -23,7 +23,7 @@ class HomeScreen extends StatelessWidget {
     return ListView(
       children: [
         const SizedBox(height: 8),
-        HomePagePoster(size: size),
+        Poster(size: size),
         const SizedBox(height: 16),
         HomePageTagList(size: size),
         SeeMoreBlogList(size: size),
@@ -302,8 +302,8 @@ class HomePageTagList extends StatelessWidget {
   }
 }
 
-class HomePagePoster extends StatelessWidget {
-  const HomePagePoster({
+class Poster extends StatelessWidget {
+  const Poster({
     super.key,
     required this.size,
   });
@@ -312,65 +312,79 @@ class HomePagePoster extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      alignment: Alignment.center,
-      children: [
-        Container(
-          height: size.height / 4.2,
-          width: size.width / 1.19,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(16),
-            image: DecorationImage(
-                image: AssetImage(homePagePosterMap["imageAssets"]),
-                fit: BoxFit.cover),
-          ),
-          foregroundDecoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(16),
-              gradient: const LinearGradient(
-                  colors: GradiantColor.homePosterCoverGradiant,
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter)),
-        ),
-        Positioned(
-          bottom: 8,
-          right: 0,
-          left: 0,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Text(
-                    homePagePosterMap["writer"] +
-                        " _ " +
-                        homePagePosterMap["date"],
-                    style: Theme.of(context).textTheme.titleLarge,
-                  ),
-                  Row(
-                    children: [
-                      Text(
-                        homePagePosterMap["viwe"],
-                        style: Theme.of(context).textTheme.titleLarge,
-                      ),
-                      const SizedBox(width: 8),
-                      const Icon(
-                        Icons.remove_red_eye_sharp,
-                        color: Colors.white,
-                        size: 17,
-                      ),
-                    ],
-                  ),
-                ],
+    final homeScreenCotroller = Get.find<HomeScreenCotroller>();
+    return Obx(
+      ()=> homeScreenCotroller.loding.value==false?
+      Stack(
+        alignment: Alignment.center,
+        children: [
+          CachedNetworkImage(
+            imageUrl: homeScreenCotroller.poster.value.image!,
+            imageBuilder: (context, imageProvider) => Container(
+              height: size.height / 4.2,
+              width: size.width / 1.19,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(16),
+                image: DecorationImage(image: imageProvider, fit: BoxFit.cover),
               ),
-              Text(
-                homePagePosterMap["titel"],
-                style: Theme.of(context).textTheme.headlineLarge,
-              )
-            ],
+              foregroundDecoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(16),
+                  gradient: const LinearGradient(
+                      colors: GradiantColor.homePosterCoverGradiant,
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter)),
+            ),
+            placeholder: (context, url) {
+              return const SpinKitCircle(
+                  color: SolidColor.primeryColor, size: 32);
+            },
+            errorWidget: (context, url, error) =>
+                homeScreenCotroller.erroeUrl(context, url, error),
           ),
-        )
-      ],
+          Positioned(
+            bottom: 8,
+            right: 0,
+            left: 0,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Text(
+                      "${homeScreenCotroller.topVisited[1].author!} _ ${homeScreenCotroller.topVisited[1].createdAt!}",
+                      style: Theme.of(context).textTheme.titleLarge,
+                    ),
+                    Row(
+                      children: [
+                        Text(
+                          homeScreenCotroller.topVisited[1].view!,
+                          style: Theme.of(context).textTheme.titleLarge,
+                        ),
+                        const SizedBox(width: 8),
+                        const Icon(
+                          Icons.remove_red_eye_sharp,
+                          color: Colors.white,
+                          size: 17,
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  width: size.width / 1.19,
+                  child: Text(
+                    homeScreenCotroller.poster.value.title!,
+                    style: Theme.of(context).textTheme.headlineLarge,
+                    textAlign: TextAlign.center,
+                    
+                  ),
+                )
+              ],
+            ),
+          )
+        ],
+      ): const SpinKitCircle(color: SolidColor.primeryColor,size: 32,),
     );
   }
 }

@@ -1,17 +1,14 @@
+import '../../component/api_constant.dart';
+
 class PosterModel {
-   String? id;
-   String? title;
-   String? image;
+  String? id;
+  String? title;
+  String? image;
 
-   PosterModel({
-    required this.id,
-    required this.title,
-    required this.image
-   });
-   PosterModel.fromjson(Map<String,dynamic> element){
+  PosterModel({this.id, this.title, this.image});
+  PosterModel.fromjson(Map<String, dynamic> element) {
     id = element["id"];
-    title= element["title"];
-    image=element["imag"];
-   }
-
+    title = element["title"];
+    image = ApiCastant.hostDlUrl + element["image"];
+  }
 }
