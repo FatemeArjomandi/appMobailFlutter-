@@ -4,7 +4,6 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:tech_blog/controller/home_screen_controller.dart';
 import 'package:tech_blog/gen/assets.gen.dart';
-import 'package:tech_blog/models/facke_data.dart';
 import 'package:tech_blog/component/my_strings.dart';
 import 'package:tech_blog/component/my_colors.dart';
 
@@ -25,7 +24,7 @@ class HomeScreen extends StatelessWidget {
         const SizedBox(height: 8),
         Poster(size: size),
         const SizedBox(height: 16),
-        HomePageTagList(size: size),
+        Tags(size: size),
         SeeMoreBlogList(size: size),
         TopVisited(size: size),
         SeeMorePotcastList(size: size),
@@ -269,8 +268,8 @@ class SeeMoreBlogList extends StatelessWidget {
   }
 }
 
-class HomePageTagList extends StatelessWidget {
-  const HomePageTagList({
+class Tags extends StatelessWidget {
+  const Tags({
     super.key,
     required this.size,
   });
@@ -279,12 +278,11 @@ class HomePageTagList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final homeScreenCotroller = Get.find<HomeScreenCotroller>();
     return SizedBox(
       height: 60,
       child: Obx(
         () => ListView.builder(
-          itemCount: homeScreenCotroller.tags.length,
+          itemCount: Get.find<HomeScreenCotroller>().tags.length,
           scrollDirection: Axis.horizontal,
           itemBuilder: (context, index) {
             return Padding(
@@ -314,77 +312,81 @@ class Poster extends StatelessWidget {
   Widget build(BuildContext context) {
     final homeScreenCotroller = Get.find<HomeScreenCotroller>();
     return Obx(
-      ()=> homeScreenCotroller.loding.value==false?
-      Stack(
-        alignment: Alignment.center,
-        children: [
-          CachedNetworkImage(
-            imageUrl: homeScreenCotroller.poster.value.image!,
-            imageBuilder: (context, imageProvider) => Container(
-              height: size.height / 4.2,
-              width: size.width / 1.19,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(16),
-                image: DecorationImage(image: imageProvider, fit: BoxFit.cover),
-              ),
-              foregroundDecoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(16),
-                  gradient: const LinearGradient(
-                      colors: GradiantColor.homePosterCoverGradiant,
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter)),
-            ),
-            placeholder: (context, url) {
-              return const SpinKitCircle(
-                  color: SolidColor.primeryColor, size: 32);
-            },
-            errorWidget: (context, url, error) =>
-                homeScreenCotroller.erroeUrl(context, url, error),
-          ),
-          Positioned(
-            bottom: 8,
-            right: 0,
-            left: 0,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+      () => homeScreenCotroller.loding.value == false
+          ? Stack(
+              alignment: Alignment.center,
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Text(
-                      "${homeScreenCotroller.topVisited[1].author!} _ ${homeScreenCotroller.topVisited[1].createdAt!}",
-                      style: Theme.of(context).textTheme.titleLarge,
+                CachedNetworkImage(
+                  imageUrl: homeScreenCotroller.poster.value.image!,
+                  imageBuilder: (context, imageProvider) => Container(
+                    height: size.height / 4.2,
+                    width: size.width / 1.19,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(16),
+                      image: DecorationImage(
+                          image: imageProvider, fit: BoxFit.cover),
                     ),
-                    Row(
-                      children: [
-                        Text(
-                          homeScreenCotroller.topVisited[1].view!,
-                          style: Theme.of(context).textTheme.titleLarge,
-                        ),
-                        const SizedBox(width: 8),
-                        const Icon(
-                          Icons.remove_red_eye_sharp,
-                          color: Colors.white,
-                          size: 17,
-                        ),
-                      ],
-                    ),
-                  ],
+                    foregroundDecoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(16),
+                        gradient: const LinearGradient(
+                            colors: GradiantColor.homePosterCoverGradiant,
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter)),
+                  ),
+                  placeholder: (context, url) {
+                    return const SpinKitCircle(
+                        color: SolidColor.primeryColor, size: 32);
+                  },
+                  errorWidget: (context, url, error) =>
+                      homeScreenCotroller.erroeUrl(context, url, error),
                 ),
-                SizedBox(
-                  width: size.width / 1.19,
-                  child: Text(
-                    homeScreenCotroller.poster.value.title!,
-                    style: Theme.of(context).textTheme.headlineLarge,
-                    textAlign: TextAlign.center,
-                    
+                Positioned(
+                  bottom: 8,
+                  right: 0,
+                  left: 0,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Text(
+                            "${homeScreenCotroller.topVisited[1].author!} _ ${homeScreenCotroller.topVisited[1].createdAt!}",
+                            style: Theme.of(context).textTheme.titleLarge,
+                          ),
+                          Row(
+                            children: [
+                              Text(
+                                homeScreenCotroller.topVisited[1].view!,
+                                style: Theme.of(context).textTheme.titleLarge,
+                              ),
+                              const SizedBox(width: 8),
+                              const Icon(
+                                Icons.remove_red_eye_sharp,
+                                color: Colors.white,
+                                size: 17,
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        width: size.width / 1.19,
+                        child: Text(
+                          homeScreenCotroller.poster.value.title!,
+                          style: Theme.of(context).textTheme.headlineLarge,
+                          textAlign: TextAlign.center,
+                        ),
+                      )
+                    ],
                   ),
                 )
               ],
+            )
+          : const SpinKitCircle(
+              color: SolidColor.primeryColor,
+              size: 32,
             ),
-          )
-        ],
-      ): const SpinKitCircle(color: SolidColor.primeryColor,size: 32,),
     );
   }
 }

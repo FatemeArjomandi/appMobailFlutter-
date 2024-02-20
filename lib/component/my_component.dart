@@ -32,7 +32,6 @@ class TagListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final homeScreenCotroller = Get.find<HomeScreenCotroller>();
     return Obx(
       () => Container(
         decoration: BoxDecoration(
@@ -50,7 +49,7 @@ class TagListView extends StatelessWidget {
                   color: Colors.white, size: 15),
               const SizedBox(width: 20),
               Text(
-                homeScreenCotroller.tags[index].title!,
+                Get.find<HomeScreenCotroller>().tags[index].title!,
                 style: Theme.of(context).textTheme.displayMedium,
               )
             ],
