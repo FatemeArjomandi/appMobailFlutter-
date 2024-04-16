@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import 'package:tech_blog/controller/home_screen_controller.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../models/facke_data.dart';
 import 'my_colors.dart';
 
 class ThegDivider extends StatelessWidget {
@@ -67,4 +66,46 @@ mylauncher(String url) async {
   } else {
     log('Could not url :$uri');
   }
+}
+//function Apbar
+PreferredSize apbar(String title) {
+  return PreferredSize(
+    preferredSize: const Size.fromHeight(80),
+    child: Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(left: 16),
+            child: Text(
+              title,
+              style: const TextStyle(
+                  fontFamily: 'Rubik',
+                  color: SolidColor.primeryColor,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w700),
+            ),
+          ),
+        ],
+        leading: Padding(
+          padding: const EdgeInsets.only(right: 16),
+          child: Container(
+            decoration: const BoxDecoration(
+              shape: BoxShape.circle,
+              color: SolidColor.apbarColor,
+            ),
+            width: 40,
+            height: 40,
+            child: const Icon(
+              Icons.arrow_back,
+              size: 30,
+              color: Colors.white,
+            ),
+          ),
+        ),
+      ),
+    ),
+  );
 }

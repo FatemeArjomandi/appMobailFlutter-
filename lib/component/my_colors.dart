@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class SolidColor {
   static const Color primeryColor = Color.fromARGB(255, 68, 4, 87);
+  static const Color apbarColor = Color.fromARGB(255, 137, 107, 146);
  static const Color posterTitel = Color.fromARGB(255, 247, 248, 249);
  static const Color posterSubTitel = Color.fromARGB(200, 247, 248, 249);
   static const Color colorTitle = Color(0xFF286BB8);

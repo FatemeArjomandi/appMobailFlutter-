@@ -62,6 +62,7 @@ class MainScreen extends StatelessWidget {
 
                         if (result.status == ShareResultStatus.success) {
                           _key.currentState!.closeDrawer();
+                          if (!context.mounted) return;
                           ScaffoldMessenger.of(context).showSnackBar(
                                SnackBar(
                                 backgroundColor: SolidColor.primeryColor,
