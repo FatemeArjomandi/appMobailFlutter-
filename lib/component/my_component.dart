@@ -67,12 +67,13 @@ mylauncher(String url) async {
     log('Could not url :$uri');
   }
 }
+
 //function Apbar
 PreferredSize apbar(String title) {
   return PreferredSize(
     preferredSize: const Size.fromHeight(80),
     child: Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.only(left: 8, right: 8),
       child: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
