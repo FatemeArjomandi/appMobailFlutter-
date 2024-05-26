@@ -4,8 +4,8 @@ import 'package:tech_blog/services/dio_service.dart';
 
 import '../models/article_model/article_list_model.dart';
 
-class ArticleScreenController extends GetxController {
-  RxList<ArticleListModel> articleList = RxList();
+class ArticleListController extends GetxController {
+  final List<ArticleListModel> articleList = RxList();
   @override
   onInit() {
     super.onInit();

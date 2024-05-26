@@ -3,14 +3,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:tech_blog/component/my_colors.dart';
-import 'package:tech_blog/controller/article_screen_controller.dart';
+import 'package:tech_blog/controller/article_list_controller.dart';
+import 'package:tech_blog/viwes/single_article_screen.dart';
 
 import '../component/my_component.dart';
+import '../controller/article_single_controller.dart';
 
 class ArticleListScreen extends StatelessWidget {
   ArticleListScreen({super.key});
-  final ArticleScreenController articleListController =
-      Get.put(ArticleScreenController());
+
+  final ArticleListController articleListController =
+      Get.put(ArticleListController());
+
+  final ArticleSingleController articleSingleController =
+      Get.put(ArticleSingleController());
 
   @override
   Widget build(BuildContext context) {
@@ -27,82 +33,102 @@ class ArticleListScreen extends StatelessWidget {
                     const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
                 child: SizedBox(
                   height: 100,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      CachedNetworkImage(
-                        imageUrl:
-                            articleListController.articleList[index].image!,
-                        imageBuilder: (context, imageProvider) {
-                          return ClipRRect(
-                            borderRadius: BorderRadius.circular(20),
-                            child: Image.network(
-                              articleListController.articleList[index].image!,
-                              fit: BoxFit.fitHeight,
-                              alignment: Alignment.center,
-                              width: 100,
-                              height: 100,
-                            ),
-                          );
-                        },
-                        placeholder: (context, url) {
-                          return const SpinKitCircle(
-                            color: SolidColor.primeryColor,
-                            size: 20,
-                          );
-                        },
-                        errorWidget: (context, url, error) {
-                          return const Icon(
-                            Icons.image_not_supported,
-                            size: 50,
-                          );
-                        },
-                      ),
-                      const SizedBox(
-                        width: 16,
-                      ),
-                      Expanded(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                                articleListController.articleList[index].title!,
-                                style: Theme.of(context).textTheme.titleMedium,
-                                maxLines: 2),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                    articleListController
-                                        .articleList[index].author!,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .titleLarge!
-                                        .copyWith(color: SolidColor.subText)),
-                                Text(
-                                    '${articleListController.articleList[index].view!}بازدید',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .titleLarge!
-                                        .copyWith(color: SolidColor.subText)),
-                                Text(
-                                    articleListController
-                                        .articleList[index].catName!,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyLarge!
-                                        .copyWith(
-                                            color: SolidColor.colorTitle)),
-                              ],
-                            )
-                          ],
+                  child: GestureDetector(
+                    onTap: () async {
+                      articleSingleController.id.value = int.parse(
+                          articleListController.articleList[index].id!);
+                     await articleSingleController.getArticleInfo();
+
+                      Get.to(
+                        () => SingleArticleScreen(),
+                        // arguments: articleListController.articleList[index].id,
+                      );
+                     
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        CachedNetworkImage(
+                          imageUrl: articleListController
+                              .articleList[index].image
+                              .toString(),
+                          imageBuilder: (context, imageProvider) {
+                            return ClipRRect(
+                              borderRadius: BorderRadius.circular(20),
+                              child: Image.network(
+                                articleListController.articleList[index].image
+                                    .toString(),
+                                fit: BoxFit.fitHeight,
+                                alignment: Alignment.center,
+                                width: 100,
+                                height: 100,
+                              ),
+                            );
+                          },
+                          placeholder: (context, url) {
+                            return const SpinKitCircle(
+                              color: SolidColor.primeryColor,
+                              size: 20,
+                            );
+                          },
+                          errorWidget: (context, url, error) {
+                            return const Icon(
+                              Icons.image_not_supported,
+                              size: 50,
+                            );
+                          },
                         ),
-                      )
-                    ],
+                        const SizedBox(
+                          width: 16,
+                        ),
+                        Expanded(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                  articleListController.articleList[index].title
+                                      .toString(),
+                                  style:
+                                      Theme.of(context).textTheme.titleMedium,
+                                  maxLines: 2),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                      articleListController
+                                          .articleList[index].author
+                                          .toString(),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleLarge!
+                                          .copyWith(color: SolidColor.subText)),
+                                  Text(
+                                      '${articleListController.articleList[index].view.toString()}بازدید',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleLarge!
+                                          .copyWith(color: SolidColor.subText)),
+                                  Text(
+                                      articleListController
+                                          .articleList[index].catName
+                                          .toString(),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyLarge!
+                                          .copyWith(
+                                              color: SolidColor.colorTitle)),
+                                ],
+                              )
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
                   ),
                 ),
               );
