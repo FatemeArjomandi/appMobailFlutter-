@@ -10,9 +10,9 @@ import 'package:tech_blog/services/dio_service.dart';
 
 class HomeScreenCotroller extends GetxController {
   Rx<PosterModel> poster = PosterModel().obs;
-  RxList<ArticleModel> topVisited = RxList();
-  RxList<PodcastsModel> topPodcasts = RxList();
-  RxList<TagsModel> tags = RxList();
+  List<ArticleModel> topVisited = RxList();
+  List<PodcastsModel> topPodcasts = RxList();
+  List<TagsModel> tags = RxList();
   RxBool loding = false.obs;
   @override
   onInit() {

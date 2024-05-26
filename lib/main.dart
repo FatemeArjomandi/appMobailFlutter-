@@ -1,8 +1,13 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:get/get.dart';
 import 'package:tech_blog/component/my_colors.dart';
+import 'package:tech_blog/viwes/article_list_screen.dart';
 import 'package:tech_blog/viwes/splash_screen.dart';
+
+import 'viwes/single_article_screen.dart';
 
 void main() {
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
@@ -19,17 +24,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
         debugShowCheckedModeBanner: false,
-        localizationsDelegates: const [
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate,
-        ],
-        supportedLocales: const [
-          Locale('fa'), //persion
-          //Locale('en'), // Spanish
-        ],
+        locale: const Locale('fa'),
         theme: ThemeData(
             inputDecorationTheme: InputDecorationTheme(
               focusedBorder: OutlineInputBorder(
@@ -101,6 +98,6 @@ class MyApp extends StatelessWidget {
                   fontSize: 14,
                   fontWeight: FontWeight.w700),
             )),
-        home: const SplashScreen());
+        home: ArticleListScreen());
   }
 }
