@@ -5,7 +5,9 @@ import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart
 import 'package:get/get.dart';
 import 'package:tech_blog/component/my_colors.dart';
 import 'package:tech_blog/component/my_strings.dart';
+import 'package:tech_blog/controller/article_list_controller.dart';
 import 'package:tech_blog/gen/assets.gen.dart';
+import 'package:tech_blog/viwes/article_list_screen.dart';
 
 import '../controller/article_single_controller.dart';
 
@@ -163,19 +165,36 @@ class Tags extends StatelessWidget {
           itemBuilder: (context, index) {
             return Padding(
               padding: const EdgeInsets.only(right: 20),
-              child: Container(
-                decoration: BoxDecoration(
-                    color: SolidColor.surface,
-                    borderRadius: BorderRadius.circular(24)),
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 20, right: 20),
-                  child: Center(
-                    child: Text(
-                        Get.find<ArticleSingleController>()
-                            .tagsArticle[index]
-                            .title
-                            .toString(),
-                        style: Theme.of(context).textTheme.bodySmall),
+              child: GestureDetector(
+                onTap: () async {
+                  var tagId = Get.find<ArticleSingleController>()
+                      .tagsArticle[index]
+                      .id
+                      .toString();
+                  await Get.find<ArticleListController>()
+                      .getArticWithTagId(tagId);
+                  Get.to(
+                    () => ArticleListScreen(),
+                    arguments: Get.find<ArticleSingleController>()
+                        .tagsArticle[index]
+                        .title
+                        .toString(),
+                  );
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                      color: SolidColor.surface,
+                      borderRadius: BorderRadius.circular(24)),
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 20, right: 20),
+                    child: Center(
+                      child: Text(
+                          Get.find<ArticleSingleController>()
+                              .tagsArticle[index]
+                              .title
+                              .toString(),
+                          style: Theme.of(context).textTheme.bodySmall),
+                    ),
                   ),
                 ),
               ),

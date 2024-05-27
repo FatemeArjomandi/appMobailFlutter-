@@ -11,6 +11,7 @@ import '../controller/article_single_controller.dart';
 
 class ArticleListScreen extends StatelessWidget {
   ArticleListScreen({super.key});
+  final title = Get.arguments;
 
   final ArticleListController articleListController =
       Get.put(ArticleListController());
@@ -22,7 +23,7 @@ class ArticleListScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-      appBar: apbar('لیست مقاله ها'),
+      appBar: apbar(title ?? 'لیست مقاله ها'),
       body: Obx(
         () => SizedBox(
           child: ListView.builder(
@@ -37,13 +38,12 @@ class ArticleListScreen extends StatelessWidget {
                     onTap: () async {
                       articleSingleController.id.value = int.parse(
                           articleListController.articleList[index].id!);
-                     await articleSingleController.getArticleInfo();
+                      await articleSingleController.getArticleInfo();
 
                       Get.to(
                         () => SingleArticleScreen(),
                         // arguments: articleListController.articleList[index].id,
                       );
-                     
                     },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,

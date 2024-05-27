@@ -20,4 +20,15 @@ class ArticleListController extends GetxController {
       }
     }
   }
+
+  getArticWithTagId(String id) async {
+    var response = await DioServices().getMethod(
+        "${ApiCastant.baseUrl}article/get.php?command=get_articles_with_tag_id&tag_id=$id&user_id=");
+    if (response.statusCode == 200) {
+      articleList.clear();
+      for (var element in (response.data as List)) {
+        articleList.add(ArticleListModel.fromjson(element));
+      }
+    }
+  }
 }
