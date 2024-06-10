@@ -239,32 +239,42 @@ class Related extends StatelessWidget {
                       EdgeInsets.only(right: index == 0 ? size.width / 13 : 15),
                   child: Column(
                     children: [
-                      CachedNetworkImage(
-                          imageUrl: Get.find<ArticleSingleController>()
-                              .relatedArtical[index]
-                              .image
-                              .toString(),
-                          imageBuilder: (context, imageProvider) => Container(
-                                decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                      image: imageProvider, fit: BoxFit.cover),
-                                  borderRadius: BorderRadius.circular(16),
-                                ),
-                                foregroundDecoration: BoxDecoration(
+                      GestureDetector(
+                        onTap: () async {
+                          await Get.find<ArticleSingleController>()
+                              .getArticleInfo(
+                                  Get.find<ArticleSingleController>()
+                                      .relatedArtical[index]
+                                      .id!);
+                        },
+                        child: CachedNetworkImage(
+                            imageUrl: Get.find<ArticleSingleController>()
+                                .relatedArtical[index]
+                                .image
+                                .toString(),
+                            imageBuilder: (context, imageProvider) => Container(
+                                  decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                        image: imageProvider,
+                                        fit: BoxFit.cover),
                                     borderRadius: BorderRadius.circular(16),
-                                    gradient: const LinearGradient(
-                                        colors: GradiantColor.blogpost,
-                                        begin: Alignment.bottomCenter,
-                                        end: Alignment.topCenter)),
-                                height: 150,
-                                width: 150,
-                              ),
-                          placeholder: (context, url) => const SpinKitCircle(
-                              color: SolidColor.primeryColor, size: 32),
-                          errorWidget: (context, url, error) => const Icon(
-                                Icons.image_not_supported,
-                                size: 50,
-                              )),
+                                  ),
+                                  foregroundDecoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(16),
+                                      gradient: const LinearGradient(
+                                          colors: GradiantColor.blogpost,
+                                          begin: Alignment.bottomCenter,
+                                          end: Alignment.topCenter)),
+                                  height: 150,
+                                  width: 150,
+                                ),
+                            placeholder: (context, url) => const SpinKitCircle(
+                                color: SolidColor.primeryColor, size: 32),
+                            errorWidget: (context, url, error) => const Icon(
+                                  Icons.image_not_supported,
+                                  size: 50,
+                                )),
+                      ),
                       const SizedBox(height: 5),
                       SizedBox(
                         width: 150,

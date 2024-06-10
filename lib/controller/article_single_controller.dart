@@ -5,6 +5,7 @@ import 'package:tech_blog/services/dio_service.dart';
 
 import '../models/article_model/article_single_models/info_model.dart';
 import '../models/article_model/article_single_models/related_model.dart';
+import '../viwes/single_article_screen.dart';
 
 class ArticleSingleController extends GetxController {
   RxInt id = RxInt(0);
@@ -13,24 +14,26 @@ class ArticleSingleController extends GetxController {
   RxList<TagsModel> tagsArticle = RxList();
   Rx<InfoModel> infoArticle = InfoModel().obs;
 
-  getArticleInfo() async {
+  getArticleInfo(var id) async {
     //TODO userId is hard code
     var userId = '';
     var responce = await DioServices().getMethod(
         "${ApiCastant.baseUrl}article/get.php?command=info&id=$id&user_id=$userId");
-    print(
-        "${ApiCastant.baseUrl}article/get.php?command=info&id=$id&user_id=$userId");
     if (responce.statusCode == 200) {
       infoArticle.value = InfoModel.fromJson(responce.data["info"]);
+      tagsArticle.clear();
       responce.data["tags"].forEach((element) {
         tagsArticle.add(TagsModel.fromjson(element));
       });
+      relatedArtical.clear();
       responce.data["related"].forEach((element) {
         relatedArtical.add(RelatedModel.fromJson(element));
       });
       isFavorite = responce.data["isFavorite"];
-
-      //print(responce.toString());
     }
+    Get.to(
+      () => SingleArticleScreen(),
+      // arguments: articleListController.articleList[index].id,
+    );
   }
 }

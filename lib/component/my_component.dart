@@ -5,6 +5,8 @@ import 'package:get/get.dart';
 import 'package:tech_blog/controller/home_screen_controller.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../controller/article_list_controller.dart';
+import '../viwes/article_list_screen.dart';
 import 'my_colors.dart';
 
 class ThegDivider extends StatelessWidget {
@@ -23,35 +25,47 @@ class ThegDivider extends StatelessWidget {
 }
 
 class TagListView extends StatelessWidget {
-  const TagListView({super.key, required this.size, required this.index});
+  TagListView({super.key, required this.size, required this.index});
 
   final Size size;
 
   final int index;
+  final homeScreenCotroller = Get.put(HomeScreenCotroller());
+  final articleListController = Get.put(ArticleListController());
 
   @override
   Widget build(BuildContext context) {
     return Obx(
-      () => Container(
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(24),
-            gradient: const LinearGradient(
-                colors: GradiantColor.tags,
-                begin: Alignment.bottomRight,
-                end: Alignment.bottomLeft)),
-        child: Padding(
-          padding: const EdgeInsets.only(left: 30, right: 10),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const ImageIcon(AssetImage('assets/icons/hashTag.png'),
-                  color: Colors.white, size: 15),
-              const SizedBox(width: 20),
-              Text(
-                Get.find<HomeScreenCotroller>().tags[index].title!,
-                style: Theme.of(context).textTheme.displayMedium,
-              )
-            ],
+      () => GestureDetector(
+        onTap: () async {
+          var tagId = homeScreenCotroller.tags[index].id.toString();
+          await articleListController.getArticWithTagId(tagId);
+          Get.to(
+            () => ArticleListScreen(),
+            arguments: homeScreenCotroller.tags[index].title.toString(),
+          );
+        },
+        child: Container(
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(24),
+              gradient: const LinearGradient(
+                  colors: GradiantColor.tags,
+                  begin: Alignment.bottomRight,
+                  end: Alignment.bottomLeft)),
+          child: Padding(
+            padding: const EdgeInsets.only(left: 30, right: 10),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const ImageIcon(AssetImage('assets/icons/hashTag.png'),
+                    color: Colors.white, size: 15),
+                const SizedBox(width: 20),
+                Text(
+                  Get.find<HomeScreenCotroller>().tags[index].title!,
+                  style: Theme.of(context).textTheme.displayMedium,
+                )
+              ],
+            ),
           ),
         ),
       ),

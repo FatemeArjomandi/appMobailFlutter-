@@ -8,6 +8,8 @@ import 'package:tech_blog/component/my_strings.dart';
 import 'package:tech_blog/component/my_colors.dart';
 
 import '../component/my_component.dart';
+import '../controller/article_single_controller.dart';
+import 'article_list_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({
@@ -145,6 +147,7 @@ class TopVisited extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final homeScreenCotroller = Get.find<HomeScreenCotroller>();
+    final articleSingleController = Get.put(ArticleSingleController());
 
     return SizedBox(
       height: 210,
@@ -159,27 +162,33 @@ class TopVisited extends StatelessWidget {
                     EdgeInsets.only(right: index == 0 ? size.width / 13 : 15),
                 child: Column(
                   children: [
-                    CachedNetworkImage(
-                      imageUrl: homeScreenCotroller.topVisited[index].image!,
-                      imageBuilder: (context, imageProvider) => Container(
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                              image: imageProvider, fit: BoxFit.cover),
-                          borderRadius: BorderRadius.circular(16),
-                        ),
-                        foregroundDecoration: BoxDecoration(
+                    GestureDetector(
+                      onTap: () async{
+                          await articleSingleController.getArticleInfo(
+                          homeScreenCotroller.topVisited[index].id!);
+                      },
+                      child: CachedNetworkImage(
+                        imageUrl: homeScreenCotroller.topVisited[index].image!,
+                        imageBuilder: (context, imageProvider) => Container(
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                                image: imageProvider, fit: BoxFit.cover),
                             borderRadius: BorderRadius.circular(16),
-                            gradient: const LinearGradient(
-                                colors: GradiantColor.blogpost,
-                                begin: Alignment.bottomCenter,
-                                end: Alignment.topCenter)),
-                        height: 150,
-                        width: 150,
+                          ),
+                          foregroundDecoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(16),
+                              gradient: const LinearGradient(
+                                  colors: GradiantColor.blogpost,
+                                  begin: Alignment.bottomCenter,
+                                  end: Alignment.topCenter)),
+                          height: 150,
+                          width: 150,
+                        ),
+                        placeholder: (context, url) => const SpinKitCircle(
+                            color: SolidColor.primeryColor, size: 32),
+                        errorWidget: (context, url, error) =>
+                            homeScreenCotroller.erroeUrl(context, url, error),
                       ),
-                      placeholder: (context, url) => const SpinKitCircle(
-                          color: SolidColor.primeryColor, size: 32),
-                      errorWidget: (context, url, error) =>
-                          homeScreenCotroller.erroeUrl(context, url, error),
                     ),
                     const SizedBox(height: 5),
                     SizedBox(
@@ -248,21 +257,26 @@ class SeeMoreBlogList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.fromLTRB(0, 32, size.width / 13, 8),
-      child: Row(
-        children: [
-          ImageIcon(
-            Assets.icons.pen.provider(),
-            color: SolidColor.colorTitle,
-            size: 30,
-          ),
-          const SizedBox(
-            width: 8,
-          ),
-          Text(Strings.viewHotstBlog,
-              style: Theme.of(context).textTheme.displaySmall)
-        ],
+    return GestureDetector(
+      onTap: () {
+        Get.to(()=>ArticleListScreen());
+      },
+      child: Padding(
+        padding: EdgeInsets.fromLTRB(0, 32, size.width / 13, 8),
+        child: Row(
+          children: [
+            ImageIcon(
+              Assets.icons.pen.provider(),
+              color: SolidColor.colorTitle,
+              size: 30,
+            ),
+            const SizedBox(
+              width: 8,
+            ),
+            Text(Strings.viewHotstBlog,
+                style: Theme.of(context).textTheme.displaySmall)
+          ],
+        ),
       ),
     );
   }

@@ -36,14 +36,8 @@ class ArticleListScreen extends StatelessWidget {
                   height: 100,
                   child: GestureDetector(
                     onTap: () async {
-                      articleSingleController.id.value = int.parse(
+                      await articleSingleController.getArticleInfo(
                           articleListController.articleList[index].id!);
-                      await articleSingleController.getArticleInfo();
-
-                      Get.to(
-                        () => SingleArticleScreen(),
-                        // arguments: articleListController.articleList[index].id,
-                      );
                     },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,

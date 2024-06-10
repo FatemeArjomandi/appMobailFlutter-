@@ -16,20 +16,15 @@ import 'home_screen.dart';
 class MainScreen extends StatelessWidget {
   MainScreen({super.key});
   final GlobalKey<ScaffoldState> _key = GlobalKey();
-  final HomeScreenCotroller homeScreenCotroller = Get.put(HomeScreenCotroller());
+  final HomeScreenCotroller homeScreenCotroller =
+      Get.put(HomeScreenCotroller());
 
   @override
   Widget build(BuildContext context) {
-    //DioServices().getMethod(ApiCastant.getHomeItems);
-    //homeScreenCotroller.getHomeItems();
-
     RxInt selectedIndex = 0.obs;
     var size = MediaQuery.of(context).size;
     var bodyMargin = size.width / 10;
-    // List<Widget> listPageBody = [
-    //   HomeScreen(size: size),
-    //   PorofilScreen(size: size),
-    // ];
+
     return SafeArea(
         child: Scaffold(
             key: _key,
@@ -63,13 +58,17 @@ class MainScreen extends StatelessWidget {
                         if (result.status == ShareResultStatus.success) {
                           _key.currentState!.closeDrawer();
                           if (!context.mounted) return;
-                          ScaffoldMessenger.of(context).showSnackBar(
-                               SnackBar(
-                                backgroundColor: SolidColor.primeryColor,
-                                shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(12))),
-                                  content:
-                                      Text('Thank you for sharing my website!',style: Theme.of(context).textTheme.headlineLarge,),
-                                  duration: const Duration(seconds: 3)));
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                              backgroundColor: SolidColor.primeryColor,
+                              shape: const RoundedRectangleBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(12))),
+                              content: Text(
+                                'Thank you for sharing my website!',
+                                style:
+                                    Theme.of(context).textTheme.headlineLarge,
+                              ),
+                              duration: const Duration(seconds: 3)));
                         }
                       },
                     ),
@@ -79,8 +78,6 @@ class MainScreen extends StatelessWidget {
                           style: Theme.of(context).textTheme.titleMedium),
                       onTap: () {
                         mylauncher(Strings.tagBlogUrl);
-
-                        
                       },
                     ),
                     const Divider(color: Colors.grey),
