@@ -12,6 +12,7 @@ import 'package:tech_blog/viwes/porofil_screen.dart';
 
 import '../component/my_strings.dart';
 import 'home_screen.dart';
+import 'register/register_into.dart';
 
 class MainScreen extends StatelessWidget {
   MainScreen({super.key});
@@ -123,6 +124,7 @@ class MainScreen extends StatelessWidget {
                 index: selectedIndex.value,
                 children: [
                   HomeScreen(size: size),
+                  RegisterInto(),
                   PorofilScreen(size: size),
                 ],
               ),
@@ -161,13 +163,15 @@ class BottomNavigationBar extends StatelessWidget {
                         color: Colors.white,
                       )),
                   IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        changeBodyMain(1);
+                      },
                       icon: ImageIcon(
                         Assets.icons.write.provider(),
                         color: Colors.white,
                       )),
                   IconButton(
-                      onPressed: () => changeBodyMain(1),
+                      onPressed: () => changeBodyMain(2),
                       icon: ImageIcon(
                         Assets.icons.user.provider(),
                         color: Colors.white,

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
+import 'package:tech_blog/controller/home_screen_controller.dart';
 import 'package:tech_blog/models/facke_data.dart';
 import 'package:tech_blog/component/my_colors.dart';
-import 'package:tech_blog/component/my_component.dart';
 
 import '../component/my_strings.dart';
 
@@ -64,9 +65,9 @@ class _MyCatsState extends State<MyCats> {
             //tagList
             Padding(
               padding:
-                  EdgeInsets.only(top: 32, left: bodyMargin, right: bodyMargin),
+                  EdgeInsets.only(top: 32,left: bodyMargin,right: bodyMargin),
               child: SizedBox(
-                height: 100,
+                height: 110,
                 width: double.maxFinite,
                 child: GridView.builder(
                   itemCount: tagList.length,
@@ -77,19 +78,48 @@ class _MyCatsState extends State<MyCats> {
                       crossAxisCount: 2,
                       mainAxisSpacing: 5,
                       crossAxisSpacing: 5,
-                      childAspectRatio: 0.3),
+                      childAspectRatio: 0.31
+                      ),
                   itemBuilder: (context, index) {
                     return InkWell(
-                        onTap: () {
-                          setState(() {
-                            if (!selectedTags.contains(tagList[index])) {
-                              selectedTags.add(tagList[index]);
-                            } else {
-                              debugPrint('${tagList[index].titel} is exste');
-                            }
-                          });
-                        },
-                        child: TagListView(size: size, index: index));
+                      onTap: () {
+                        setState(() {
+                          if (!selectedTags.contains(tagList[index])) {
+                            selectedTags.add(tagList[index]);
+                          } else {
+                            debugPrint('${tagList[index].titel} is exste');
+                          }
+                        });
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(24),
+                            gradient: const LinearGradient(
+                                colors: GradiantColor.tags,
+                                begin: Alignment.bottomRight,
+                                end: Alignment.bottomLeft)),
+                        child: Padding(
+                          padding: const EdgeInsets.only( right: 20),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              const ImageIcon(
+                                  AssetImage('assets/icons/hashTag.png'),
+                                  color: Colors.white,
+                                  size: 15),
+                              const SizedBox(width: 20),
+                              Text(
+                                Get.find<HomeScreenCotroller>()
+                                    .tags[index]
+                                    .title!,
+                                style:
+                                    Theme.of(context).textTheme.displayMedium,
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                    );
                   },
                 ),
               ),

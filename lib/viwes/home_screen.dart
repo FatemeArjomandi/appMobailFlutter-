@@ -30,7 +30,7 @@ class HomeScreen extends StatelessWidget {
         SeeMoreBlogList(size: size),
         TopVisited(size: size),
         SeeMorePotcastList(size: size),
-        TopPodcast(size: size),
+        //TopPodcast(size: size),
       ],
     );
   }
@@ -72,9 +72,13 @@ class TopPodcast extends StatelessWidget {
                         : CachedNetworkImage(
                             imageUrl:
                                 homeScreenCotroller.topPodcasts[index].poster!,
-                            errorWidget: (context, url, error) =>
-                                homeScreenCotroller.erroeUrl(
-                                    context, url, error),
+                            errorWidget: (context, url, error) {
+                              return const Icon(
+                                Icons.image_not_supported_outlined,
+                                color: Colors.grey,
+                                size: 50,
+                              );
+                            },
                             imageBuilder: (context, imageProvider) => Container(
                               decoration: BoxDecoration(
                                 image: DecorationImage(
@@ -163,9 +167,9 @@ class TopVisited extends StatelessWidget {
                 child: Column(
                   children: [
                     GestureDetector(
-                      onTap: () async{
-                          await articleSingleController.getArticleInfo(
-                          homeScreenCotroller.topVisited[index].id!);
+                      onTap: () async {
+                        await articleSingleController.getArticleInfo(
+                            homeScreenCotroller.topVisited[index].id!);
                       },
                       child: CachedNetworkImage(
                         imageUrl: homeScreenCotroller.topVisited[index].image!,
@@ -259,7 +263,7 @@ class SeeMoreBlogList extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Get.to(()=>ArticleListScreen());
+        Get.to(() => ArticleListScreen());
       },
       child: Padding(
         padding: EdgeInsets.fromLTRB(0, 32, size.width / 13, 8),
@@ -331,29 +335,31 @@ class Poster extends StatelessWidget {
               alignment: Alignment.center,
               children: [
                 CachedNetworkImage(
-                  imageUrl: homeScreenCotroller.poster.value.image!,
-                  imageBuilder: (context, imageProvider) => Container(
-                    height: size.height / 4.2,
-                    width: size.width / 1.19,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(16),
-                      image: DecorationImage(
-                          image: imageProvider, fit: BoxFit.cover),
-                    ),
-                    foregroundDecoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(16),
-                        gradient: const LinearGradient(
-                            colors: GradiantColor.homePosterCoverGradiant,
-                            begin: Alignment.topCenter,
-                            end: Alignment.bottomCenter)),
-                  ),
-                  placeholder: (context, url) {
-                    return const SpinKitCircle(
-                        color: SolidColor.primeryColor, size: 32);
-                  },
-                  errorWidget: (context, url, error) =>
-                      homeScreenCotroller.erroeUrl(context, url, error),
-                ),
+                    imageUrl: homeScreenCotroller.poster.value.image!,
+                    imageBuilder: (context, imageProvider) => Container(
+                          height: size.height / 4.2,
+                          width: size.width / 1.19,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(16),
+                            image: DecorationImage(
+                                image: imageProvider, fit: BoxFit.cover),
+                          ),
+                          foregroundDecoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(16),
+                              gradient: const LinearGradient(
+                                  colors: GradiantColor.homePosterCoverGradiant,
+                                  begin: Alignment.topCenter,
+                                  end: Alignment.bottomCenter)),
+                        ),
+                    placeholder: (context, url) {
+                      return const SpinKitCircle(
+                          color: SolidColor.primeryColor, size: 32);
+                    },
+                    errorWidget: (context, url, error) => const Icon(
+                          Icons.image_not_supported_outlined,
+                          color: Colors.grey,
+                          size: 50,
+                        )),
                 Positioned(
                   bottom: 8,
                   right: 0,

@@ -1,11 +1,16 @@
+
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import 'package:tech_blog/component/my_strings.dart';
+import 'package:tech_blog/controller/register_controller.dart';
 import 'package:tech_blog/viwes/my_cats.dart';
 import 'package:validators/validators.dart';
 
 class RegisterInto extends StatelessWidget {
-  const RegisterInto({super.key});
+  RegisterInto({super.key});
+  final registerController = Get.put(RegisterController());
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +40,10 @@ class RegisterInto extends StatelessWidget {
                 onPressed: () {
                   showEmailBottomSheet(context);
                 },
-                child: const Text('بزن بریم'),
+                child: Text(
+                  'بزن بریم',
+                  style: Theme.of(context).textTheme.bodyLarge,
+                ),
               ),
             )
           ],
@@ -70,8 +78,12 @@ class RegisterInto extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(24),
                   child: TextField(
+                      controller: registerController.emailTextEditingController,
+                      style: const TextStyle(color: Colors.amber),
                       onChanged: (value) {
-                        print(value + 'is Email =' + isEmail(value).toString());
+                        if (isEmail(value)) {
+                          print('$value is Email =${isEmail(value)}');
+                        }
                       },
                       textAlign: TextAlign.center,
                       decoration: const InputDecoration(
@@ -85,7 +97,11 @@ class RegisterInto extends StatelessWidget {
                         onPressed: () {
                           Navigator.pop(context);
                           showActivitiCodeBottomSheet(context);
-                        }, child: const Text('ادامه')))
+                        },
+                        child: Text(
+                          'ادامه',
+                          style: Theme.of(context).textTheme.bodyLarge,
+                        )))
               ],
             ),
           ),
@@ -93,7 +109,7 @@ class RegisterInto extends StatelessWidget {
       },
     );
   }
-  
+
   Future<dynamic> showActivitiCodeBottomSheet(BuildContext context) {
     return showModalBottomSheet(
       isScrollControlled: true,
@@ -120,6 +136,8 @@ class RegisterInto extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(24),
                   child: TextField(
+                      controller:
+                          registerController.activeCodeTextEditingController,
                       onChanged: (value) {
                         //print(value + 'is Email =' + isNumeric(value).toString());
                       },
@@ -133,8 +151,15 @@ class RegisterInto extends StatelessWidget {
                     width: 150,
                     child: ElevatedButton(
                         onPressed: () {
-                          Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const MyCats(),));
-                        }, child: const Text('ادامه')))
+                          Navigator.of(context)
+                              .pushReplacement(MaterialPageRoute(
+                            builder: (context) => const MyCats(),
+                          ));
+                        },
+                        child: Text(
+                          'ادامه',
+                          style: Theme.of(context).textTheme.bodyLarge,
+                        )))
               ],
             ),
           ),

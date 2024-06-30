@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -55,6 +57,7 @@ class HomeScreenCotroller extends GetxController {
     var response = await DioServices().getMethod(ApiCastant.getHomeItems);
 
     if (response.statusCode == 200) {
+      //log(response.toString());
       for (var element in (response.data['top_visited'] as List)) {
         topVisited.add(ArticleModel.fromjson(element));
       }

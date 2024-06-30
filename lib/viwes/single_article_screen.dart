@@ -29,8 +29,7 @@ class SingleArticleScreen extends StatelessWidget {
             Stack(
               children: [
                 CachedNetworkImage(
-                    imageUrl: articleSingleController.infoArticle.value.image
-                        .toString(),
+                    imageUrl: articleSingleController.infoArticle.value.image!,
                     imageBuilder: (context, imageProvider) {
                       return Container(
                         height: 250,
