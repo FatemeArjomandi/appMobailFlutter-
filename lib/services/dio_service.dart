@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:dio/dio.dart' as dio_services;
 
 class DioServices {
   Dio dio = Dio();
@@ -14,10 +15,10 @@ class DioServices {
   }
 
   Future<dynamic> postMethod(Map<String, dynamic> map, String url) async {
-    dio.options.headers['content-type'] = 'application/json';
+    dio.options.headers['content-type'] = 'multipart/form-data';
     return await dio
         .post(url,
-            data: map,
+            data: dio_services.FormData.fromMap(map),
             options: Options(responseType: ResponseType.json, method: 'POST'))
         .then((value) {
       return value;

@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -79,7 +77,7 @@ class RegisterInto extends StatelessWidget {
                   padding: const EdgeInsets.all(24),
                   child: TextField(
                       controller: registerController.emailTextEditingController,
-                      style: const TextStyle(color: Colors.amber),
+                      style: const TextStyle(color: Colors.black),
                       onChanged: (value) {
                         if (isEmail(value)) {
                           print('$value is Email =${isEmail(value)}');
@@ -95,6 +93,7 @@ class RegisterInto extends StatelessWidget {
                     width: 150,
                     child: ElevatedButton(
                         onPressed: () {
+                          registerController.rigestering();
                           Navigator.pop(context);
                           showActivitiCodeBottomSheet(context);
                         },
@@ -138,8 +137,10 @@ class RegisterInto extends StatelessWidget {
                   child: TextField(
                       controller:
                           registerController.activeCodeTextEditingController,
+                      style: const TextStyle(color: Colors.black),
                       onChanged: (value) {
-                        //print(value + 'is Email =' + isNumeric(value).toString());
+                        //print(
+                        // value + 'is Email =' + isNumeric(value).toString());
                       },
                       textAlign: TextAlign.center,
                       decoration: const InputDecoration(
@@ -151,10 +152,8 @@ class RegisterInto extends StatelessWidget {
                     width: 150,
                     child: ElevatedButton(
                         onPressed: () {
-                          Navigator.of(context)
-                              .pushReplacement(MaterialPageRoute(
-                            builder: (context) => const MyCats(),
-                          ));
+                          registerController.verify();
+                         
                         },
                         child: Text(
                           'ادامه',
