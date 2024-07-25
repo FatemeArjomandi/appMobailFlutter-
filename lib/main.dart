@@ -38,15 +38,15 @@ class MyApp extends StatelessWidget {
             ),
             elevatedButtonTheme: ElevatedButtonThemeData(
               style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.resolveWith(
+                  backgroundColor: WidgetStateProperty.resolveWith(
                 (states) {
-                  if (states.contains(MaterialState.pressed)) {
+                  if (states.contains(WidgetState.pressed)) {
                     return SolidColor.subText;
                   }
                   return SolidColor.primeryColor;
                 },
-              ), textStyle: MaterialStateProperty.resolveWith((states) {
-                if (states.contains(MaterialState.pressed)) {
+              ), textStyle: WidgetStateProperty.resolveWith((states) {
+                if (states.contains(WidgetState.pressed)) {
                   return Theme.of(context).textTheme.headlineMedium;
                 }
                 return Theme.of(context).textTheme.bodyLarge;

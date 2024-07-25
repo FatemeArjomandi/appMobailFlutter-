@@ -3,7 +3,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:tech_blog/component/my_strings.dart';
 import 'package:tech_blog/controller/register_controller.dart';
-import 'package:tech_blog/viwes/my_cats.dart';
 import 'package:validators/validators.dart';
 
 class RegisterInto extends StatelessWidget {
@@ -93,7 +92,7 @@ class RegisterInto extends StatelessWidget {
                     width: 150,
                     child: ElevatedButton(
                         onPressed: () {
-                          registerController.rigestering();
+                          registerController.rigesteringEmail();
                           Navigator.pop(context);
                           showActivitiCodeBottomSheet(context);
                         },
@@ -152,7 +151,7 @@ class RegisterInto extends StatelessWidget {
                     width: 150,
                     child: ElevatedButton(
                         onPressed: () {
-                          registerController.verify();
+                          registerController.verifyCode();
                          
                         },
                         child: Text(

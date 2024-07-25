@@ -3,17 +3,20 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:tech_blog/component/api_constant.dart';
-import 'package:tech_blog/services/dio_service.dart';
-import 'package:tech_blog/viwes/main_screen.dart';
+
+import '../component/api_constant.dart';
+import '../component/storage_const.dart';
+import '../services/dio_service.dart';
+import '../viwes/main_screen.dart';
 
 class RegisterController extends GetxController {
   final emailTextEditingController = TextEditingController();
   final activeCodeTextEditingController = TextEditingController();
   var email = '';
   var userId = '';
+  
 
-  rigestering() async {
+  rigesteringEmail() async {
     Map<String, dynamic> map = {
       'email': emailTextEditingController.text,
       'command': 'register'
@@ -26,7 +29,7 @@ class RegisterController extends GetxController {
     }
   }
 
-  verify() async {
+  verifyCode() async {
     Map<String, dynamic> map = {
       'email': email,
       'user_id': userId,
@@ -36,8 +39,8 @@ class RegisterController extends GetxController {
     var response = await DioServices().postMethod(map, ApiCastant.postRigester);
     if (response.data['response'] == 'verified') {
       var box = GetStorage();
-      box.write('token', response.data["token"]);
-      box.write('userId', response.data['user_id']);
+      box.write(token, response.data["token"]);
+      box.write(user_Id, response.data['user_id']);
       //print('token is :${box.read('token')}');
       //print('userId is : ${box.read('userId')}');
       Get.to(()=>MainScreen());
