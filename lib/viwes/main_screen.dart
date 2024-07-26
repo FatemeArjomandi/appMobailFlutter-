@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:tech_blog/component/my_component.dart';
 import 'package:tech_blog/controller/home_screen_controller.dart';
+import 'package:tech_blog/controller/register_controller.dart';
 import 'package:tech_blog/gen/assets.gen.dart';
 import 'package:tech_blog/component/my_colors.dart';
 import 'package:tech_blog/viwes/porofil_screen.dart';
@@ -130,8 +131,9 @@ class MainScreen extends StatelessWidget {
 }
 
 class BottomNavigationBar extends StatelessWidget {
-  const BottomNavigationBar({super.key, required this.changeBodyMain});
+  BottomNavigationBar({super.key, required this.changeBodyMain});
   final Function(int) changeBodyMain;
+  final RegisterController registerController = Get.put(RegisterController());
 
   @override
   Widget build(BuildContext context) {
@@ -154,14 +156,16 @@ class BottomNavigationBar extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   IconButton(
-                      onPressed: () => changeBodyMain(0),
+                      onPressed: () {
+                        changeBodyMain(0);
+                      },
                       icon: ImageIcon(
                         Assets.icons.home.provider(),
                         color: Colors.white,
                       )),
                   IconButton(
                       onPressed: () {
-                        changeBodyMain(1);
+                        registerController.togleLogin();
                       },
                       icon: ImageIcon(
                         Assets.icons.write.provider(),
